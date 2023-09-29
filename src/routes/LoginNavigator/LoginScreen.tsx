@@ -15,7 +15,7 @@ const LoginScreen: FC<LoginNavigatorScreenProps<'Login'>> = ({navigation}) => {
 
   return (
     <Screen safeArea>
-      <Text variant="headlineMedium">Play With Me</Text>
+      <Text variant="headlineMedium">Sports Together</Text>
       <Button>Continue with Apple</Button>
       <Button>Continue with Facebook</Button>
       <Button onPress={onMobileNumberPress}>Use mobile number</Button>
