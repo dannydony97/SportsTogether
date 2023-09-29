@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1039776303821",
+    "project_id": "sportstogether-2e96e",
+    "storage_bucket": "sportstogether-2e96e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1039776303821:android:688217a3867d182787f784",
+        "android_client_info": {
+          "package_name": "com.sportstogether"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAM6hz96nAnW9niqxaiZmkAtDAqU8nbqqk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
