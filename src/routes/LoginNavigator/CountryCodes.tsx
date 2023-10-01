@@ -29,7 +29,7 @@ const CountryCodes: FC<LoginNavigatorScreenProps<'CountryCodes'>> = ({navigation
   /**
    * Triggered when the 'Cancel' button has been pressed
    */
-  const onCancelPress = () => {
+  const onCancelPress = (): void => {
     navigation.goBack();
   };
 
@@ -37,7 +37,7 @@ const CountryCodes: FC<LoginNavigatorScreenProps<'CountryCodes'>> = ({navigation
    * Triggered when a country item has been selected
    * @param country selected country data
    */
-  const onCountryPress = (country: CountryData) => {
+  const onCountryPress = (country: CountryData): void => {
     navigation.navigate('MobileNumber', {
       countryCallingCode: formatCallingCode(country.countryCallingCode),
     });
@@ -48,7 +48,7 @@ const CountryCodes: FC<LoginNavigatorScreenProps<'CountryCodes'>> = ({navigation
    * @param countryCallingCode calling code of a country
    * @returns formatted calling code of a country
    */
-  const formatCallingCode = (countryCallingCode: string) => {
+  const formatCallingCode = (countryCallingCode: string): string => {
     return `+${countryCallingCode}`;
   };
 

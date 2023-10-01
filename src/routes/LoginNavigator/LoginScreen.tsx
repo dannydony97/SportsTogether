@@ -7,7 +7,7 @@ const LoginScreen: FC<LoginNavigatorScreenProps<'Login'>> = ({navigation}) => {
   /**
    * Triggered when the 'use mobile number' button has been pressed
    */
-  const onMobileNumberPress = () => {
+  const onMobileNumberPress = (): void => {
     navigation.navigate('MobileNumber', {
       countryCallingCode: '+40',
     });

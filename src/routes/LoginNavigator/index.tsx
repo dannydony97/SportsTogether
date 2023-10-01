@@ -5,6 +5,7 @@ import MobileNumberScreen from './MobileNumberScreen';
 import {LoginNavigatorParamsList, LoginNavigatorProps} from './types';
 import CountryCodes from './CountryCodes';
 import NavigationBar from '../../components/NavigationBar';
+import ConfirmNumberScreen from './ConfirmNumberScreen';
 
 const Stack = createNativeStackNavigator<LoginNavigatorParamsList>();
 
@@ -13,7 +14,8 @@ const LoginNavigator: FC<LoginNavigatorProps> = ({}) => {
     <Stack.Navigator
       screenOptions={{
         header: props => <NavigationBar {...props} />,
-      }}>
+      }}
+      initialRouteName="Login">
       <Stack.Screen
         name="Login"
         component={LoginScreen}
@@ -36,6 +38,7 @@ const LoginNavigator: FC<LoginNavigatorProps> = ({}) => {
           presentation: 'containedModal',
         }}
       />
+      <Stack.Screen initialParams={{phoneNumber: ''}} name="ConfirmNumber" component={ConfirmNumberScreen} />
     </Stack.Navigator>
   );
 };

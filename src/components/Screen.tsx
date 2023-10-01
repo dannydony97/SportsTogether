@@ -1,10 +1,10 @@
-import React, {FC, PropsWithChildren} from 'react';
+import React, {FC} from 'react';
 import {ScrollView, StyleProp, ViewStyle} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {ScreenProps} from './types';
 import {useTheme} from 'react-native-paper';
 
-const Screen: FC<PropsWithChildren<ScreenProps>> = ({children, safeArea, style, scrollEnabled, ...scrollViewProps}) => {
+const Screen: FC<ScreenProps> = ({children, safeArea, style, scrollEnabled, ...scrollViewProps}) => {
   // react native paper theme
   const theme = useTheme();
 

@@ -46,6 +46,7 @@
 		89C6BE57DB24E9ADA2F236DE /* Pods-SportsTogether-SportsTogetherTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SportsTogether-SportsTogetherTests.release.xcconfig"; path = "Target Support Files/Pods-SportsTogether-SportsTogetherTests/Pods-SportsTogether-SportsTogetherTests.release.xcconfig"; sourceTree = "<group>"; };
 		9929EB12B77B29C5B5207943 /* Pods_SportsTogether_SportsTogetherTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SportsTogether_SportsTogetherTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C56F7B352AC6BC7E0032749B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C5CD09B72AC6D96D0083FDBF /* SportsTogether.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = SportsTogether.entitlements; path = SportsTogether/SportsTogether.entitlements; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -89,6 +90,7 @@
 		13B07FAE1A68108700A75B9A /* SportsTogether */ = {
 			isa = PBXGroup;
 			children = (
+				C5CD09B72AC6D96D0083FDBF /* SportsTogether.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -225,6 +227,9 @@
 				Base,
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
+			packageReferences = (
+				C56F7B382AC6CAF40032749B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -505,6 +510,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = SportsTogether/SportsTogether.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = YKP7NB9969;
 				ENABLE_BITCODE = NO;
@@ -532,6 +538,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = SportsTogether/SportsTogether.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = YKP7NB9969;
 				INFOPLIST_FILE = SportsTogether/Info.plist;
@@ -719,6 +726,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C56F7B382AC6CAF40032749B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.15.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
 	};
 	rootObject = 83CBB9F71A601CBA00E9B192 /* Project object */;
 }
