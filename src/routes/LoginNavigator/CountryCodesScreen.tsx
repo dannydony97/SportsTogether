@@ -5,7 +5,7 @@ import {Button, List, Searchbar, Text} from 'react-native-paper';
 import Screen from '../../components/Screen';
 import {ScrollView} from 'react-native';
 
-const CountryCodes: FC<LoginNavigatorScreenProps<'CountryCodes'>> = ({navigation}) => {
+const CountryCodesScreen: FC<LoginNavigatorScreenProps<'CountryCodes'>> = ({navigation}) => {
   /**
    * Search query value
    */
@@ -78,4 +78,4 @@ const CountryCodes: FC<LoginNavigatorScreenProps<'CountryCodes'>> = ({navigation
   );
 };
 
-export default CountryCodes;
+export default CountryCodesScreen;

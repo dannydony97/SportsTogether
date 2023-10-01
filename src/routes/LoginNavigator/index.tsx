@@ -3,9 +3,10 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import LoginScreen from './LoginScreen';
 import MobileNumberScreen from './MobileNumberScreen';
 import {LoginNavigatorParamsList, LoginNavigatorProps} from './types';
-import CountryCodes from './CountryCodes';
+import CountryCodesScreen from './CountryCodesScreen';
 import NavigationBar from '../../components/NavigationBar';
 import ConfirmNumberScreen from './ConfirmNumberScreen';
+import CreateAccountWizardScreen from './CreateAccountWizardScreen';
 
 const Stack = createNativeStackNavigator<LoginNavigatorParamsList>();
 
@@ -32,13 +33,19 @@ const LoginNavigator: FC<LoginNavigatorProps> = ({}) => {
       />
       <Stack.Screen
         name="CountryCodes"
-        component={CountryCodes}
+        component={CountryCodesScreen}
         options={{
           headerShown: false,
           presentation: 'containedModal',
         }}
       />
-      <Stack.Screen initialParams={{phoneNumber: ''}} name="ConfirmNumber" component={ConfirmNumberScreen} />
+      <Stack.Screen
+        initialParams={{phoneNumber: ''}}
+        name="ConfirmNumber"
+        component={ConfirmNumberScreen}
+        options={{headerShown: false, gestureEnabled: false}}
+      />
+      <Stack.Screen name="CreateAccountWizard" component={CreateAccountWizardScreen} options={{headerShown: false}} />
     </Stack.Navigator>
   );
 };

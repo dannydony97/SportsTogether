@@ -38,7 +38,7 @@ const AuthentificationProvider: FC<AuthentificationProviderProps> = ({children})
    */
   const confirmCode = async (code: string): Promise<boolean> => {
     if (!confirmation) {
-      return false;
+      throw new Error('Method called before "signInWithPhoneNumber"');
     }
     try {
       await confirmation.confirm(code);

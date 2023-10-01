@@ -1,12 +1,10 @@
-import React, {FC, useState} from 'react';
-import {StyleSheet} from 'react-native';
+import React, {forwardRef} from 'react';
+import {StyleSheet, TextInput} from 'react-native';
 import {CodeField, Cursor, useClearByFocusCell} from 'react-native-confirmation-code-field';
 import {Surface, Text} from 'react-native-paper';
 import {ConfirmCodeProps} from './types';
 
-const ConfirmCode: FC<ConfirmCodeProps> = ({...codeFieldProps}) => {
-  const [value, setValue] = useState('');
-
+const ConfirmCode = forwardRef<TextInput, ConfirmCodeProps>(({value, setValue, ...codeFieldProps}, ref) => {
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
     value,
     setValue,
@@ -14,6 +12,7 @@ const ConfirmCode: FC<ConfirmCodeProps> = ({...codeFieldProps}) => {
 
   return (
     <CodeField
+      ref={ref}
       {...props}
       cellCount={6}
       rootStyle={styles.codeFieldRoot}
@@ -31,7 +30,7 @@ const ConfirmCode: FC<ConfirmCodeProps> = ({...codeFieldProps}) => {
       {...codeFieldProps}
     />
   );
-};
+});
 
 const styles = StyleSheet.create({
   root: {flex: 1, padding: 20},

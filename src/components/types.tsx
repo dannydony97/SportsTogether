@@ -1,14 +1,15 @@
-import {ScrollViewProps, StyleProp, TextInput, ViewStyle} from 'react-native';
+import {Dispatch} from 'react';
+import {TextInput, ViewProps} from 'react-native';
 import {CodeFieldProps} from 'react-native-confirmation-code-field';
 import {SurfaceProps} from 'react-native-paper';
 
 /**
  * Screen properties
  */
-export interface ScreenProps extends Omit<ScrollViewProps, 'scrollEnabled' | 'contentContainerStyle'> {
+export interface ScreenProps extends ViewProps {
   safeArea?: boolean;
   scrollEnabled?: boolean;
-  contentContainerStyle?: StyleProp<ViewStyle>;
+  headerUsing?: boolean;
 }
 
 /**
@@ -42,4 +43,7 @@ export interface CharInputProps extends Omit<SurfaceProps, 'children'> {
 /**
  * Confirm code component properties
  */
-export interface ConfirmCodeProps extends Omit<CodeFieldProps, 'renderCell'> {}
+export interface ConfirmCodeProps extends Omit<CodeFieldProps, 'renderCell'> {
+  value: string;
+  setValue: Dispatch<string>;
+}
