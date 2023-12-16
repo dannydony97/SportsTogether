@@ -1,14 +1,13 @@
 import {Dispatch} from 'react';
-import {TextInput, ViewProps} from 'react-native';
+import {TextInput} from 'react-native';
 import {CodeFieldProps} from 'react-native-confirmation-code-field';
-import {SurfaceProps} from 'react-native-paper';
+import {SafeAreaViewProps} from 'react-native-safe-area-context';
+import {ViewProps} from 'react-native-ui-lib';
 
 /**
  * Screen properties
  */
-export interface ScreenProps extends ViewProps {
-  safeArea?: boolean;
-  scrollEnabled?: boolean;
+export interface ScreenProps extends SafeAreaViewProps {
   headerUsing?: boolean;
 }
 
@@ -20,7 +19,7 @@ export interface CharInputMethods extends TextInput {}
 /**
  * Char input component properties
  */
-export interface CharInputProps extends Omit<SurfaceProps, 'children'> {
+export interface CharInputProps extends Omit<ViewProps, 'children'> {
   /**
    * Label char
    */

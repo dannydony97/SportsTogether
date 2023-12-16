@@ -1,9 +1,9 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC, useEffect, useLayoutEffect, useState} from 'react';
 import {LoginNavigatorScreenProps} from './types';
 import {CountryData, all} from 'country-codes-list';
-import {Button, List, Searchbar, Text} from 'react-native-paper';
 import Screen from '../../components/Screen';
-import {ScrollView} from 'react-native';
+import {ScrollView, StyleSheet} from 'react-native';
+import {Colors, ListItem, Text} from 'react-native-ui-lib';
 
 const CountryCodesScreen: FC<LoginNavigatorScreenProps<'CountryCodes'>> = ({navigation}) => {
   /**
@@ -17,6 +17,21 @@ const CountryCodesScreen: FC<LoginNavigatorScreenProps<'CountryCodes'>> = ({navi
   const [filteredCountries, setFilteredCountries] = useState<CountryData[]>(all());
 
   /**
+   * Setting navigation options
+   */
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerSearchBarOptions: {
+        autoFocus: true,
+        onChangeText(e) {
+          setSearchQuery(e.nativeEvent.text);
+        },
+        onCancelButtonPress: () => navigation.goBack(),
+      },
+    });
+  }, [navigation]);
+
+  /**
    * Triggered when the {@link searchQuery} has been changed in order to filter the countries
    */
   useEffect(() => {
@@ -25,13 +40,6 @@ const CountryCodesScreen: FC<LoginNavigatorScreenProps<'CountryCodes'>> = ({navi
     );
     setFilteredCountries(filtered);
   }, [searchQuery]);
-
-  /**
-   * Triggered when the 'Cancel' button has been pressed
-   */
-  const onCancelPress = (): void => {
-    navigation.goBack();
-  };
 
   /**
    * Triggered when a country item has been selected
@@ -53,29 +61,31 @@ const CountryCodesScreen: FC<LoginNavigatorScreenProps<'CountryCodes'>> = ({navi
   };
 
   return (
-    <Screen safeArea>
-      <Searchbar
-        placeholder="Search..."
-        value={searchQuery}
-        onChangeText={setSearchQuery}
-        right={() => <Button onPress={onCancelPress}>Cancel</Button>}
-      />
-
-      <ScrollView>
-        <List.Section>
-          {filteredCountries.map((country, index) => (
-            <List.Item
-              key={index}
-              title={country.countryNameEn}
-              onPress={() => onCountryPress(country)}
-              left={() => <Text>{country.flag}</Text>}
-              right={() => <Text>{formatCallingCode(country.countryCallingCode)}</Text>}
-            />
-          ))}
-        </List.Section>
+    <Screen>
+      <ScrollView contentInsetAdjustmentBehavior="automatic">
+        {filteredCountries.map((country, index) => (
+          <ListItem key={index} height={50} onPress={() => onCountryPress(country)}>
+            <ListItem.Part middle containerStyle={styles.listItem}>
+              <Text text70 style={{flex: 1, marginRight: 10}} numberOfLines={1}>
+                {`${country.flag} ${country.countryNameEn}`}
+              </Text>
+              <Text grey30 text70 style={{marginTop: 2}}>
+                {formatCallingCode(country.countryCallingCode)}
+              </Text>
+            </ListItem.Part>
+          </ListItem>
+        ))}
       </ScrollView>
     </Screen>
   );
 };
+
+const styles = StyleSheet.create({
+  listItem: {
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderColor: Colors.grey60,
+    paddingHorizontal: 17,
+  },
+});
 
 export default CountryCodesScreen;

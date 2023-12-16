@@ -1,12 +1,11 @@
 import React, {FC, useRef, useState} from 'react';
 import {LoginNavigatorScreenProps} from './types';
 import Screen from '../../components/Screen';
-import {HelperText, IconButton, Text} from 'react-native-paper';
 import {TextInput, View} from 'react-native';
 import ConfirmCode from '../../components/ConfirmCode';
-import {MaterialIcon} from '../../components/Icon';
 import {useFocusEffect} from '@react-navigation/native';
 import {useAuthentification} from '../../providers/AuthentificationProvider';
+import {Button, Text} from 'react-native-ui-lib';
 
 const ConfirmNumberScreen: FC<LoginNavigatorScreenProps<'ConfirmNumber'>> = ({navigation, route}) => {
   /**
@@ -57,15 +56,12 @@ const ConfirmNumberScreen: FC<LoginNavigatorScreenProps<'ConfirmNumber'>> = ({na
   };
 
   return (
-    <Screen safeArea>
+    <Screen>
       <View style={{flex: 1, padding: 30}}>
         <View style={{flex: 1}}>
-          <Text variant="headlineMedium">Verify your number</Text>
+          <Text>Verify your number</Text>
           <Text>Enter the code we've sent by text to {route.params.phoneNumber}</Text>
-          <Text
-            onPress={onChangePress}
-            variant="bodyLarge"
-            style={{fontWeight: 'bold', textDecorationLine: 'underline'}}>
+          <Text onPress={onChangePress} style={{fontWeight: 'bold', textDecorationLine: 'underline'}}>
             Change
           </Text>
           <ConfirmCode
@@ -74,15 +70,9 @@ const ConfirmNumberScreen: FC<LoginNavigatorScreenProps<'ConfirmNumber'>> = ({na
             ref={confirmCodeRef}
             rootStyle={{paddingVertical: 20}}
           />
-          <HelperText type="error">{confirmCodeMessage}</HelperText>
+          <Text>{confirmCodeMessage}</Text>
         </View>
-        <IconButton
-          disabled={confirmCodeValue.length < 6}
-          style={{alignSelf: 'flex-end'}}
-          onPress={onNextPress}
-          size={40}
-          icon={props => <MaterialIcon {...props} name="chevron-right" />}
-        />
+        <Button disabled={confirmCodeValue.length < 6} style={{alignSelf: 'flex-end'}} onPress={onNextPress} />
       </View>
     </Screen>
   );

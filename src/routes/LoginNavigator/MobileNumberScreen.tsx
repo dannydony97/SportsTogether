@@ -1,11 +1,10 @@
 import React, {FC, useRef, useState} from 'react';
 import {LoginNavigatorScreenProps} from './types';
 import Screen from '../../components/Screen';
-import {HelperText, IconButton, Text, TextInput} from 'react-native-paper';
-import {Pressable, TextInput as RNTextInput, View} from 'react-native';
+import {Pressable, TextInput as RNTextInput} from 'react-native';
 import {useFocusEffect} from '@react-navigation/native';
-import {MaterialIcon} from '../../components/Icon';
 import {useAuthentification} from '../../providers/AuthentificationProvider';
+import {Button, Text, TextField, View} from 'react-native-ui-lib';
 
 const MobileNumberScreen: FC<LoginNavigatorScreenProps<'MobileNumber'>> = ({navigation, route}) => {
   /**
@@ -70,38 +69,30 @@ const MobileNumberScreen: FC<LoginNavigatorScreenProps<'MobileNumber'>> = ({navi
     <Screen headerUsing>
       <View style={{flex: 1, padding: 30}}>
         <View style={{flex: 1}}>
-          <Text variant="headlineMedium">What's your number?</Text>
+          <Text text30>What's your number?</Text>
           <View style={{flexDirection: 'row', paddingTop: 30}}>
             <Pressable onPress={onCountryPress}>
-              <TextInput
+              <TextField
                 onPressOut={onCountryPress}
                 style={{marginRight: 10}}
                 label="Country"
-                mode="outlined"
                 editable={false}
                 value={route.params.countryCallingCode}
               />
             </Pressable>
             <View style={{flex: 3}}>
-              <TextInput
-                error={phoneNumberMessage.length ? true : false}
+              <TextField
                 ref={phoneNumberTextInputRef}
                 value={phoneNumber}
                 onChangeText={onPhoneNumberTextChanged}
                 label="Phone number"
-                mode="outlined"
+                validationMessage={phoneNumberMessage}
                 keyboardType="numeric"
               />
-              <HelperText type="error">{phoneNumberMessage}</HelperText>
             </View>
           </View>
         </View>
-        <IconButton
-          style={{alignSelf: 'flex-end'}}
-          onPress={onNextPress}
-          size={40}
-          icon={props => <MaterialIcon {...props} name="chevron-right" />}
-        />
+        <Button style={{alignSelf: 'flex-end'}} onPress={onNextPress} />
       </View>
     </Screen>
   );

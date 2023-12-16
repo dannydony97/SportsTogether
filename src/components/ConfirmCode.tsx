@@ -1,8 +1,8 @@
 import React, {forwardRef} from 'react';
 import {StyleSheet, TextInput} from 'react-native';
 import {CodeField, Cursor, useClearByFocusCell} from 'react-native-confirmation-code-field';
-import {Surface, Text} from 'react-native-paper';
 import {ConfirmCodeProps} from './types';
+import {Text, View} from 'react-native-ui-lib';
 
 const ConfirmCode = forwardRef<TextInput, ConfirmCodeProps>(({value, setValue, ...codeFieldProps}, ref) => {
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
@@ -21,11 +21,11 @@ const ConfirmCode = forwardRef<TextInput, ConfirmCodeProps>(({value, setValue, .
       value={value}
       onChangeText={setValue}
       renderCell={({index, symbol, isFocused}) => (
-        <Surface style={{borderRadius: 10}} key={index}>
+        <View style={{borderRadius: 10}} key={index}>
           <Text style={[styles.cell]} onLayout={getCellOnLayoutHandler(index)}>
             {symbol || (isFocused ? <Cursor /> : null)}
           </Text>
-        </Surface>
+        </View>
       )}
       {...codeFieldProps}
     />

@@ -1,44 +1,33 @@
 import React, {FC} from 'react';
-import {KeyboardAvoidingView, Platform, ScrollView, StyleProp, ViewStyle} from 'react-native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {KeyboardAvoidingView, Platform, StyleSheet} from 'react-native';
+import {Edge, SafeAreaView} from 'react-native-safe-area-context';
 import {ScreenProps} from './types';
-import {useTheme} from 'react-native-paper';
-import {useHeaderHeight} from '@react-navigation/elements';
+import {Colors} from 'react-native-ui-lib';
 
-const Screen: FC<ScreenProps> = ({children, safeArea, scrollEnabled, headerUsing, ...viewProps}) => {
-  // react native paper theme
-  const theme = useTheme();
-
-  /**
-   * React navigation headert height
-   */
-  const headerHeight = useHeaderHeight();
-
-  // Safe area insets
-  const insets = useSafeAreaInsets();
-  const safeAreaStyle: StyleProp<ViewStyle> = {
-    flex: 1,
-    backgroundColor: theme.colors.background,
-    paddingTop: safeArea ? insets.top : 0,
-    paddingBottom: safeArea ? insets.bottom : 0,
-    paddingLeft: safeArea ? insets.left : 0,
-    paddingRight: safeArea ? insets.right : 0,
-  };
-
+const Screen: FC<ScreenProps> = ({children, headerUsing, ...safeAreaViewProps}) => {
   return (
-    <KeyboardAvoidingView
-      keyboardVerticalOffset={headerUsing ? headerHeight : 0}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={safeAreaStyle}
-      {...viewProps}>
-      <ScrollView
-        keyboardShouldPersistTaps="always"
-        contentContainerStyle={{flex: 1}}
-        scrollEnabled={!scrollEnabled ? false : true}>
+    <SafeAreaView
+      edges={['left', 'right', 'bottom', ...(!headerUsing ? (['top'] as Edge[]) : [])]}
+      style={styles.safeArea}
+      {...safeAreaViewProps}>
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.keyboardAvoiding}>
         {children}
-      </ScrollView>
-    </KeyboardAvoidingView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: Colors.$backgroundDefault,
+  },
+  keyboardAvoiding: {
+    flex: 1,
+  },
+  scroll: {
+    flex: 1,
+  },
+});
 
 export default Screen;

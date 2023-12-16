@@ -4,7 +4,6 @@ import LoginScreen from './LoginScreen';
 import MobileNumberScreen from './MobileNumberScreen';
 import {LoginNavigatorParamsList, LoginNavigatorProps} from './types';
 import CountryCodesScreen from './CountryCodesScreen';
-import NavigationBar from '../../components/NavigationBar';
 import ConfirmNumberScreen from './ConfirmNumberScreen';
 import CreateAccountWizardScreen from './CreateAccountWizardScreen';
 
@@ -12,11 +11,7 @@ const Stack = createNativeStackNavigator<LoginNavigatorParamsList>();
 
 const LoginNavigator: FC<LoginNavigatorProps> = ({}) => {
   return (
-    <Stack.Navigator
-      screenOptions={{
-        header: props => <NavigationBar {...props} />,
-      }}
-      initialRouteName="Login">
+    <Stack.Navigator initialRouteName="Login">
       <Stack.Screen
         name="Login"
         component={LoginScreen}
@@ -35,7 +30,7 @@ const LoginNavigator: FC<LoginNavigatorProps> = ({}) => {
         name="CountryCodes"
         component={CountryCodesScreen}
         options={{
-          headerShown: false,
+          title: 'Country / Region',
           presentation: 'containedModal',
         }}
       />
