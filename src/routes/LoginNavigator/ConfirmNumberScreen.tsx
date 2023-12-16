@@ -51,8 +51,6 @@ const ConfirmNumberScreen: FC<LoginNavigatorScreenProps<'ConfirmNumber'>> = ({na
       setConfirmCodeMessage('Confirmation code is invalid!');
       return;
     }
-
-    navigation.navigate('CreateAccountWizard', {});
   };
 
   return (

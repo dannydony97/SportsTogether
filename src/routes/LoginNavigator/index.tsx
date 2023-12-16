@@ -5,7 +5,6 @@ import MobileNumberScreen from './MobileNumberScreen';
 import {LoginNavigatorParamsList, LoginNavigatorProps} from './types';
 import CountryCodesScreen from './CountryCodesScreen';
 import ConfirmNumberScreen from './ConfirmNumberScreen';
-import CreateAccountWizardScreen from './CreateAccountWizardScreen';
 
 const Stack = createNativeStackNavigator<LoginNavigatorParamsList>();
 
@@ -40,7 +39,6 @@ const LoginNavigator: FC<LoginNavigatorProps> = ({}) => {
         component={ConfirmNumberScreen}
         options={{headerShown: false, gestureEnabled: false}}
       />
-      <Stack.Screen name="CreateAccountWizard" component={CreateAccountWizardScreen} options={{headerShown: false}} />
     </Stack.Navigator>
   );
 };

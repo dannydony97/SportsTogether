@@ -1,13 +1,13 @@
 import {NavigationContainer} from '@react-navigation/native';
 import React, {FC} from 'react';
-import LoginNavigator from './src/routes/LoginNavigator';
 import AuthentificationProvider from './src/providers/AuthentificationProvider';
+import MainNavigator from './src/routes/MainNavigator';
 
 const App: FC = () => {
   return (
     <NavigationContainer>
       <AuthentificationProvider>
-        <LoginNavigator />
+        <MainNavigator />
       </AuthentificationProvider>
     </NavigationContainer>
   );

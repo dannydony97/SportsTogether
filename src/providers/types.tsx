@@ -1,9 +1,14 @@
+import {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import {PropsWithChildren} from 'react';
 
 /**
  * Authentification context interface
  */
 export interface AuthentificationContextInterface {
+  /**
+   * User's profile information
+   */
+  user: FirebaseAuthTypes.User | null;
   /**
    * Signs in with a phone number
    * @param phoneNumber phone number

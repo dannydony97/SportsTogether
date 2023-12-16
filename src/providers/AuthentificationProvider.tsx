@@ -24,10 +24,6 @@ const AuthentificationProvider: FC<AuthentificationProviderProps> = ({children})
     return auth().onAuthStateChanged(user => setUser(user));
   }, []);
 
-  useEffect(() => {
-    console.log('User has been updated', user);
-  }, [user]);
-
   /**
    * Signs in with a phone number
    * @param phoneNumber phone number
@@ -102,7 +98,7 @@ const AuthentificationProvider: FC<AuthentificationProviderProps> = ({children})
   };
 
   return (
-    <AuthentificationContext.Provider value={{signInWithPhoneNumber, signInWithApple, confirmCode}}>
+    <AuthentificationContext.Provider value={{user, signInWithPhoneNumber, signInWithApple, confirmCode}}>
       {children}
     </AuthentificationContext.Provider>
   );

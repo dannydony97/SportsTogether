@@ -1,9 +1,9 @@
 import React, {FC} from 'react';
 import Screen from '../../components/Screen';
-import {LoginNavigatorScreenProps} from './types';
 import {Text} from 'react-native-ui-lib';
+import {MenuNavigatorScreenProps} from './types';
 
-const CreateAccountWizardScreen: FC<LoginNavigatorScreenProps<'CreateAccountWizard'>> = () => {
+const CreateAccountWizardScreen: FC<MenuNavigatorScreenProps<'CreateAccountWizard'>> = () => {
   return (
     <Screen>
       <Text>TO DO!</Text>
