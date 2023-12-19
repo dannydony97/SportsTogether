@@ -1,12 +1,13 @@
-import {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import {PropsWithChildren} from 'react';
+import {FirebaseAuthTypes} from '@react-native-firebase/auth';
+import { UserProps } from '../api/datamodel/types';
 
 /**
  * Authentification context interface
  */
 export interface AuthentificationContextInterface {
   /**
-   * User's profile information
+   * UID of the logged in user
    */
   user: FirebaseAuthTypes.User | null;
   /**
@@ -34,14 +35,18 @@ export interface AuthentificationProviderProps extends PropsWithChildren {}
 /**
  * User context interface
  */
-export interface UserContextInterface {}
+export interface UserContextInterface {
+  /**
+   * User properties
+   */
+  userProps: UserProps | undefined;
+  /**
+   * Refreshes the user properties
+   */
+  refresh: () => Promise<void>;
+}
 
 /**
  * User Provider properties
  */
-export interface UserProviderProps extends PropsWithChildren {
-  /**
-   * UID of an user
-   */
-  uid: string;
-}
+export interface UserProviderProps extends PropsWithChildren {}

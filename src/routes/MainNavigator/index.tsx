@@ -9,12 +9,17 @@ import {useAuthentification} from '../../providers/AuthentificationProvider';
 const Stack = createNativeStackNavigator<MainNavigatorParamsList>();
 
 const MainNavigator: FC<MainNavigatorProps> = ({}) => {
+  /**
+   * Authentificated user UID
+   */
   const {user} = useAuthentification();
 
+  /**
+   * Navigation object instance
+   */
   const navigation = useNavigation<NavigationProp<MainNavigatorParamsList>>();
 
   useEffect(() => {
-    console.log('Value of the user: ', user);
     if (user) {
       navigation.navigate('MenuNavigator', {});
     }

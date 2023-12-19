@@ -1,12 +1,28 @@
-import {UserData} from './types';
+import {IUserDocument} from './types';
 import {Document} from './Document';
 
-export class UserDocument extends Document<UserData> {
+export class UserDocument extends Document<IUserDocument> {
   /**
-   * Public constructor
+   * Path to the users collection
+   */
+  private static readonly collectionPath = 'users';
+
+  /**
+   * Private constructor
    * @param uid user UID
    */
-  public constructor(uid: string) {
-    super('users', uid);
+  private constructor(uid: string, data: IUserDocument) {
+    super(UserDocument.collectionPath, uid, data);
+  }
+
+  /**
+   * Retrieves an {@link UserDocument} instance
+   * @param uid uid of an user
+   * @returns {@link UserDocument} instance
+   */
+  public static async get(uid: string): Promise<UserDocument> {
+    const data = await Document.fetch<IUserDocument>(UserDocument.collectionPath, uid);
+    const userDocument = new UserDocument(uid, data);
+    return userDocument;
   }
 }

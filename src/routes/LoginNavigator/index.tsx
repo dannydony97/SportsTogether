@@ -2,13 +2,14 @@ import React, {FC} from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import LoginScreen from './LoginScreen';
 import MobileNumberScreen from './MobileNumberScreen';
-import {LoginNavigatorParamsList, LoginNavigatorProps} from './types';
+import {LoginNavigatorParamsList} from './types';
 import CountryCodesScreen from './CountryCodesScreen';
 import ConfirmNumberScreen from './ConfirmNumberScreen';
+import {MainNavigatorScreenProps} from '../MainNavigator/types';
 
 const Stack = createNativeStackNavigator<LoginNavigatorParamsList>();
 
-const LoginNavigator: FC<LoginNavigatorProps> = ({}) => {
+const LoginNavigator: FC<MainNavigatorScreenProps<'LoginNavigator'>> = ({}) => {
   return (
     <Stack.Navigator initialRouteName="Login">
       <Stack.Screen

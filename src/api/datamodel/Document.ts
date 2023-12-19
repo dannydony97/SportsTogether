@@ -1,6 +1,6 @@
 import firestore, {FirebaseFirestoreTypes} from '@react-native-firebase/firestore';
 
-export abstract class Document<I extends FirebaseFirestoreTypes.DocumentData> {
+export class Document<I extends FirebaseFirestoreTypes.DocumentData> {
   /**
    * Collection path
    */
@@ -12,34 +12,46 @@ export abstract class Document<I extends FirebaseFirestoreTypes.DocumentData> {
   protected readonly id: string;
 
   /**
+   * Document data
+   */
+  public data: I;
+
+  /**
    * Public constructor
    * @param path Document path
    * @param id Document id
    */
-  public constructor(path: string, id: string) {
+  protected constructor(path: string, id: string, data: I) {
     this.path = path;
     this.id = id;
+    this.data = data;
   }
 
   /**
-   * Retrieves the document reference object
+   * Fetches the document data
+   * @param path path of the document
+   * @param id id of the document
+   * @returns document's data
    */
-  private get documentRef(): FirebaseFirestoreTypes.DocumentReference<I> {
-    return firestore().collection<I>(this.path).doc(this.id);
-  }
-
-  /**
-   * Retrieves the document's data
-   */
-  public async data(): Promise<I | undefined> {
-    return (await this.documentRef.get()).data();
+  protected static async fetch<I extends FirebaseFirestoreTypes.DocumentData>(path: string, id: string): Promise<I> {
+    const documentRef = firestore().collection<I>(path).doc(id);
+    const documentData = (await documentRef.get()).data();
+    if (!documentData) {
+      throw new Error('Document data could not be retrieved');
+    }
+    return documentData;
   }
 
   /**
    * Updates document's data
    * @param data new document data
    */
-  public async update(data: Partial<FirebaseFirestoreTypes.SetValue<I>>): Promise<void> {
-    this.documentRef.update(data);
+  protected async update(data: Partial<FirebaseFirestoreTypes.SetValue<I>>): Promise<void> {
+    const documentRef = firestore().collection<I>(this.path).doc(this.id);
+    await documentRef.update(data);
+    this.data = {
+      ...this.data,
+      ...data,
+    };
   }
 }
