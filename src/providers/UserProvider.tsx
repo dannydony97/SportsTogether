@@ -25,11 +25,16 @@ const UserProvider: FC<UserProviderProps> = ({children}) => {
     if (!user) {
       return;
     }
-    const userDocument = await UserDocument.get(user.uid);
-    return {
-      ...userDocument.data,
-      displayName: user.displayName,
-    };
+
+    try {
+      const userDocument = await UserDocument.get(user.uid);
+      return {
+        ...userDocument.data,
+        displayName: user.displayName,
+      };
+    } catch {
+      return;
+    }
   }, [user]);
 
   /**
