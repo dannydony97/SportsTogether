@@ -39,7 +39,7 @@ export interface UserContextInterface {
   /**
    * User's properties
    */
-  userProps: UserProps | undefined;
+  userProps: UserProps | null | undefined;
   /**
    * Refreshes the user properties
    */

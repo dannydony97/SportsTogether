@@ -15,13 +15,13 @@ const UserProvider: FC<UserProviderProps> = ({children}) => {
   /**
    * User's properties
    */
-  const [userProps, setUserProps] = useState<UserProps | undefined>();
+  const [userProps, setUserProps] = useState<UserProps | null>();
 
   /**
    * Fetches all user's properties
    * @returns User properties
    */
-  const fetchUserProps = useCallback(async (): Promise<UserProps | undefined> => {
+  const fetchUserProps = useCallback(async (): Promise<UserProps | null> => {
     if (!user) {
       throw new Error('Could not fetch props. No user is authenticated');
     }
@@ -33,7 +33,7 @@ const UserProvider: FC<UserProviderProps> = ({children}) => {
         displayName: user.displayName,
       };
     } catch {
-      return;
+      return null;
     }
   }, [user]);
 

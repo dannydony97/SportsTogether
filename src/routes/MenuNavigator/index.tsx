@@ -8,8 +8,14 @@ const Tab = createBottomTabNavigator<MenuNavigatorParamsList>();
 
 const MenuNavigator: FC<MainNavigatorScreenProps<'MenuNavigator'>> = () => {
   return (
-    <Tab.Navigator initialRouteName="HomeNavigator">
-      <Tab.Screen name="HomeNavigator" component={HomeNavigator} />
+    <Tab.Navigator initialRouteName="HomeNavigator" screenOptions={{headerShown: false}}>
+      <Tab.Screen
+        name="HomeNavigator"
+        component={HomeNavigator}
+        options={{
+          title: 'Home',
+        }}
+      />
     </Tab.Navigator>
   );
 };
