@@ -25,4 +25,12 @@ export class UserDocument extends Document<IUserDocument> {
     const userDocument = new UserDocument(uid, data);
     return userDocument;
   }
+
+  /**
+   * Creates a new user document with its given uid
+   * @param uid identifier of the authentificated user
+   */
+  public static async create(uid: string, data: IUserDocument): Promise<void> {
+    await Document.add(UserDocument.collectionPath, uid, data);
+  }
 }

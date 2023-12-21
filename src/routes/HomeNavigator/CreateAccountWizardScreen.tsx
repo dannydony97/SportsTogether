@@ -5,6 +5,7 @@ import {HomeNavigatorScreenProps} from './types';
 import {Ionicon, MaterialIcon} from '../../components/Icon';
 import {Sport, UserProps} from '../../api/datamodel/types';
 import {ColorValue, ListRenderItemInfo} from 'react-native';
+import {useUser} from '../../providers/UserProvider';
 
 type WizardStep = {
   state: WizardStepStates;
@@ -112,6 +113,11 @@ const SPORTS: ReadonlyArray<SportItem> = [
 
 const CreateAccountWizardScreen: FC<HomeNavigatorScreenProps<'CreateAccountWizard'>> = () => {
   /**
+   * Creates the authentificated user function
+   */
+  const {createUser} = useUser();
+
+  /**
    * Index of the active step
    */
   const [activeIndex, setActiveIndex] = useState(0);
@@ -149,11 +155,30 @@ const CreateAccountWizardScreen: FC<HomeNavigatorScreenProps<'CreateAccountWizar
     return false;
   };
 
+  /**
+   * Triggered when all user properties has been collected
+   */
+  const onCreateAccountCompleted = async (): Promise<void> => {
+    await createUser(userProps);
+  };
+
+  /**
+   * Triggered when the next buttom has been pressed
+   */
+  const onNextButtonPress = (): void => {
+    const nextIndex = activeIndex + 1;
+    if (nextIndex < WIZARD_STEPS.length) {
+      setActiveIndex(nextIndex);
+    } else {
+      onCreateAccountCompleted();
+    }
+  };
+
   return (
     <Screen>
       <Wizard activeIndex={activeIndex}>
-        {WIZARD_STEPS.map(({state, label}) => (
-          <Wizard.Step state={state} label={label} />
+        {WIZARD_STEPS.map(({state, label}, index) => (
+          <Wizard.Step key={index} state={state} label={label} />
         ))}
       </Wizard>
       <View flex style={{padding: 15}}>
@@ -170,7 +195,7 @@ const CreateAccountWizardScreen: FC<HomeNavigatorScreenProps<'CreateAccountWizar
             iconSource={() => <MaterialIcon name="arrow-forward-ios" size={30} color="white" />}
             enableShadow
             disabled={isDisabledNextButton()}
-            onPress={() => setActiveIndex(activeIndex + 1)}
+            onPress={onNextButtonPress}
           />
         </View>
       </View>

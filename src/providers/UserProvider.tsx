@@ -23,7 +23,7 @@ const UserProvider: FC<UserProviderProps> = ({children}) => {
    */
   const fetchUserProps = useCallback(async (): Promise<UserProps | undefined> => {
     if (!user) {
-      return;
+      throw new Error('Could not fetch props. No user is authenticated');
     }
 
     try {
@@ -40,16 +40,37 @@ const UserProvider: FC<UserProviderProps> = ({children}) => {
   /**
    * Refreshes the user's properties
    */
-  const refresh = useCallback(async () => {
+  const refreshUser = useCallback(async () => {
     const userProps = await fetchUserProps();
     setUserProps(userProps);
   }, [fetchUserProps]);
 
-  useEffect(() => {
-    refresh();
-  }, [refresh]);
+  /**
+   * Creates the authentificated user
+   * @param param0 user properties
+   */
+  const createUser = async ({displayName, ...userProps}: UserProps): Promise<void> => {
+    if (!user) {
+      throw new Error('Could not fetch props. No user is authenticated');
+    }
 
-  return <UserContext.Provider value={{userProps, refresh}}>{children}</UserContext.Provider>;
+    user.displayName = displayName;
+    await UserDocument.create(user.uid, userProps);
+    setUserProps({
+      displayName,
+      ...userProps,
+    });
+  };
+
+  useEffect(() => {
+    if (!user) {
+      return;
+    }
+
+    refreshUser();
+  }, [refreshUser, user]);
+
+  return <UserContext.Provider value={{userProps, refreshUser, createUser}}>{children}</UserContext.Provider>;
 };
 
 export function useUser(): UserContextInterface {

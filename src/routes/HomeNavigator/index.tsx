@@ -23,6 +23,8 @@ const HomeNavigator: FC<MenuNavigatorScreenProps<'HomeNavigator'>> = () => {
   useEffect(() => {
     if (!userProps) {
       navigation.navigate('CreateAccountWizard', {});
+    } else {
+      navigation.navigate('Home', {});
     }
   }, [navigation, userProps]);
 

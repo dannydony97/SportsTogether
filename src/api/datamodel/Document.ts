@@ -54,4 +54,17 @@ export class Document<I extends FirebaseFirestoreTypes.DocumentData> {
       ...data,
     };
   }
+
+  /**
+   * Adds a new document with the given data
+   * @param id id of the document
+   * @param data data of the document
+   */
+  protected static async add<I extends FirebaseFirestoreTypes.DocumentData>(
+    path: string,
+    id: string,
+    data: I,
+  ): Promise<void> {
+    await firestore().collection(path).doc(id).set(data);
+  }
 }
