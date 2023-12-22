@@ -12,11 +12,12 @@ const PlacesView: FC<PlacesViewProps> = ({...mapViewProps}) => {
 
   return (
     <MapView {...mapViewProps}>
-      {places?.map(({coordinate, images}, index) => (
+      {places?.map(({coordinate, images, id}, index) => (
         <Marker
+          identifier={id}
           key={index}
           coordinate={{latitude: coordinate.latitude, longitude: coordinate.longitude}}
-          onPress={() => console.log('Marker press!')}>
+          onPress={e => console.log('Marker press!', e.nativeEvent.id)}>
           <PlaceViewMarker size={50} image={images[0]} />
         </Marker>
       ))}

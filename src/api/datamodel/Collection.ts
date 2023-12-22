@@ -1,4 +1,5 @@
 import firestore, {FirebaseFirestoreTypes} from '@react-native-firebase/firestore';
+import {WithID} from './types';
 
 export class Collection<I extends FirebaseFirestoreTypes.DocumentData> {
   /**
@@ -31,10 +32,13 @@ export class Collection<I extends FirebaseFirestoreTypes.DocumentData> {
    * Retrieves all documents data of this collection
    * @returns all documents data of this collection
    */
-  public async getData(): Promise<I[]> {
+  public async getData(): Promise<WithID<I>[]> {
     const collectionRef = firestore().collection<I>(this.path);
     const querySnapshot = await collectionRef.get();
-    return querySnapshot.docs.map(doc => doc.data());
+    return querySnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
   }
 
   /**

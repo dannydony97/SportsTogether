@@ -2,6 +2,13 @@ import {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import {FirebaseFirestoreTypes} from '@react-native-firebase/firestore';
 
 /**
+ * Document data with its identifier
+ */
+export type WithID<I extends FirebaseFirestoreTypes.DocumentData> = I & {
+  id: string;
+};
+
+/**
  * List of supported sports
  */
 export type Sport = 'Calisthenics' | 'Football';
