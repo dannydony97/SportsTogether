@@ -1,6 +1,6 @@
 import {PropsWithChildren} from 'react';
 import {FirebaseAuthTypes} from '@react-native-firebase/auth';
-import {UserProps} from '../api/datamodel/types';
+import {PlaceData, UserProps} from '../api/datamodel/types';
 
 /**
  * Authentification context interface
@@ -54,3 +54,22 @@ export interface UserContextInterface {
  * User Provider properties
  */
 export interface UserProviderProps extends PropsWithChildren {}
+
+/**
+ * Places context interface
+ */
+export interface PlacesContextInterface {
+  /**
+   * Places document data
+   */
+  places: PlaceData[] | undefined;
+  /**
+   * Refreshes the places array
+   */
+  refreshPlaces: () => Promise<void>;
+}
+
+/**
+ * Places Provider properties
+ */
+export interface PlacesProviderProps extends PropsWithChildren {}

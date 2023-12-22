@@ -1,13 +1,18 @@
-import React, {FC} from 'react';
+import React, {FC, useEffect} from 'react';
+import {View} from 'react-native-ui-lib';
 import {HomeNavigatorScreenProps} from './types';
-import {Screen} from 'react-native-screens';
-import {Text} from 'react-native-ui-lib';
+import PlacesView from '../../components/PlacesView';
+import PlacesProvider from '../../providers/PlacesProvider';
 
 const HomeScreen: FC<HomeNavigatorScreenProps<'Home'>> = () => {
+  useEffect(() => {});
+
   return (
-    <Screen>
-      <Text>Home: TODO</Text>
-    </Screen>
+    <View flex>
+      <PlacesProvider>
+        <PlacesView style={{flex: 1}} />
+      </PlacesProvider>
+    </View>
   );
 };
 

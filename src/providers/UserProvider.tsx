@@ -1,12 +1,17 @@
-import React, {FC, createContext, useCallback, useContext, useEffect, useState} from 'react';
+import React, {FC, createContext, useCallback, useContext, useEffect, useRef, useState} from 'react';
 import {UserContextInterface, UserProviderProps} from './types';
-import {UserDocument} from '../api/datamodel/User';
 import {useAuthentification} from './AuthentificationProvider';
 import {UserProps} from '../api/datamodel/types';
+import {UsersCollection} from '../api/datamodel/UsersCollection';
 
 const UserContext = createContext<UserContextInterface | null>(null);
 
 const UserProvider: FC<UserProviderProps> = ({children}) => {
+  /**
+   * Users collection object instance
+   */
+  const usersCollection = useRef(new UsersCollection());
+
   /**
    * UID of the authentificated user
    */
@@ -27,9 +32,9 @@ const UserProvider: FC<UserProviderProps> = ({children}) => {
     }
 
     try {
-      const userDocument = await UserDocument.get(user.uid);
+      const userData = await usersCollection.current.getDataById(user.uid);
       return {
-        ...userDocument.data,
+        ...userData,
         displayName: user.displayName,
       };
     } catch {
@@ -49,16 +54,16 @@ const UserProvider: FC<UserProviderProps> = ({children}) => {
    * Creates the authentificated user
    * @param param0 user properties
    */
-  const createUser = async ({displayName, ...userProps}: UserProps): Promise<void> => {
+  const createUser = async ({displayName, ...userDocumentData}: UserProps): Promise<void> => {
     if (!user) {
       throw new Error('Could not fetch props. No user is authenticated');
     }
 
     user.displayName = displayName;
-    await UserDocument.create(user.uid, userProps);
+    await usersCollection.current.addData(userDocumentData);
     setUserProps({
       displayName,
-      ...userProps,
+      ...userDocumentData,
     });
   };
 
