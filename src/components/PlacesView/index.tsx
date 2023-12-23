@@ -1,4 +1,4 @@
-import React, {FC, useState} from 'react';
+import React, {FC, useRef, useState} from 'react';
 import MapView, {Details, Marker, MarkerPressEvent, Region} from 'react-native-maps';
 import {usePlaces} from '../../providers/PlacesProvider';
 import {PlacesViewProps} from './types';
@@ -11,6 +11,11 @@ const PlacesView: FC<PlacesViewProps> = ({...mapViewProps}) => {
   const {places} = usePlaces();
 
   /**
+   * Map View reference object
+   */
+  const mapViewRef = useRef<MapView>(null);
+
+  /**
    * Current region on the map
    */
   const [region, setRegion] = useState<Region>();
@@ -21,20 +26,19 @@ const PlacesView: FC<PlacesViewProps> = ({...mapViewProps}) => {
    */
   const onMarkerPress = (e: MarkerPressEvent): void => {
     const markerIndex = parseInt(e.nativeEvent.id, 10);
-
-    setRegion({
-      ...region!,
-      latitude: places[markerIndex].coordinate.latitude,
-      longitude: places[markerIndex].coordinate.longitude,
-    });
+    const coordinates = places[markerIndex].coordinate;
+    mapViewRef.current?.animateToRegion(
+      {latitude: coordinates.latitude, longitude: coordinates.longitude, latitudeDelta: 0, longitudeDelta: 0},
+      1000,
+    );
   };
 
-  const onRegionChange = (region: Region, details: Details): void => {
+  const onRegionChange = (region: Region): void => {
     setRegion(region);
   };
 
   return (
-    <MapView region={region} onRegionChange={onRegionChange} {...mapViewProps}>
+    <MapView ref={mapViewRef} region={region} onRegionChange={onRegionChange} {...mapViewProps}>
       {places?.map(({coordinate, images}, index) => (
         <Marker
           identifier={String(index)}
