@@ -1,40 +1,46 @@
 import React, {FC, useEffect, useRef} from 'react';
 import {PlaceViewMarkerProps} from './types';
-import {View} from 'react-native-ui-lib';
+import {Image, View} from 'react-native-ui-lib';
 import {Animated} from 'react-native';
 
 const PLACE_VIEW_MARKER_SIZE = 50;
 
 const PlaceViewMarker: FC<PlaceViewMarkerProps> = ({image, selected}) => {
-  const scale = useRef(new Animated.Value(1)).current;
+  const scale = useRef(new Animated.Value(1));
 
   useEffect(() => {
     if (selected) {
-      Animated.spring(scale, {
-        toValue: 10,
+      Animated.spring(scale.current, {
+        toValue: 2,
         useNativeDriver: true,
-      });
+      }).start();
     } else {
-      Animated.spring(scale, {
+      Animated.spring(scale.current, {
         toValue: 1,
         useNativeDriver: true,
-      });
+      }).start();
     }
-  });
+  }, [selected]);
 
   return (
-    <View style={{alignItems: 'center'}}>
-      <Animated.Image
-        style={[
-          {
-            width: PLACE_VIEW_MARKER_SIZE,
-            height: PLACE_VIEW_MARKER_SIZE,
-            borderRadius: PLACE_VIEW_MARKER_SIZE / 2,
-            borderColor: 'white',
-            borderWidth: 2,
-          },
-          {transform: [{scale: scale}]},
-        ]}
+    <Animated.View
+      style={[
+        {
+          alignItems: 'center',
+          overflow: 'hidden',
+        },
+        {
+          transform: [{scale: scale.current}],
+        },
+      ]}>
+      <Image
+        style={{
+          borderColor: 'white',
+          borderWidth: 2,
+          width: PLACE_VIEW_MARKER_SIZE,
+          height: PLACE_VIEW_MARKER_SIZE,
+          borderRadius: PLACE_VIEW_MARKER_SIZE / 2,
+        }}
         source={{uri: image}}
       />
       <View
@@ -52,7 +58,7 @@ const PlaceViewMarker: FC<PlaceViewMarkerProps> = ({image, selected}) => {
           borderTopColor: 'white',
         }}
       />
-    </View>
+    </Animated.View>
   );
 };
 

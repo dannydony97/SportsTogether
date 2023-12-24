@@ -5,7 +5,7 @@ export interface PlacesViewProps extends ViewProps {}
 
 export interface PlaceViewMarkerProps {
   image: string;
-  selected?: boolean;
+  selected: boolean;
 }
 
 export interface PlacesBottomSheetViewProps {
