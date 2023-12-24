@@ -31,7 +31,7 @@ const HomeNavigator: FC<MenuNavigatorScreenProps<'HomeNavigator'>> = () => {
   return (
     <Stack.Navigator initialRouteName="Home">
       <Stack.Group>
-        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Home" component={HomeScreen} options={{headerShown: false}} />
       </Stack.Group>
       <Stack.Group screenOptions={{presentation: 'fullScreenModal', headerShown: false}}>
         <Stack.Screen name="CreateAccountWizard" component={CreateAccountWizardScreen} />

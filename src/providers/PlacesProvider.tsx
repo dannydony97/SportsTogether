@@ -1,7 +1,7 @@
 import React, {FC, createContext, useCallback, useContext, useEffect, useRef, useState} from 'react';
 import {PlacesContextInterface, PlacesProviderProps} from './types';
 import {PlacesCollection} from '../api/datamodel/PlacesCollection';
-import {PlaceData} from '../api/datamodel/types';
+import {PlaceData, WithID} from '../api/datamodel/types';
 
 const PlacesContext = createContext<PlacesContextInterface | null>(null);
 
@@ -14,12 +14,12 @@ const PlacesProvider: FC<PlacesProviderProps> = ({children}) => {
   /**
    * Places data
    */
-  const [places, setPlaces] = useState<PlaceData[]>([]);
+  const [places, setPlaces] = useState<WithID<PlaceData>[]>([]);
 
   /**
    * Fetches all the places
    */
-  const fetchPlaces = useCallback(async (): Promise<PlaceData[]> => {
+  const fetchPlaces = useCallback(async (): Promise<WithID<PlaceData>[]> => {
     return await placesCollection.current.getData();
   }, []);
 

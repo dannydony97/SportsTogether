@@ -1,8 +1,13 @@
-import {MapViewProps} from 'react-native-maps';
+import {ViewProps} from 'react-native-ui-lib';
+import {PlaceData} from '../../api/datamodel/types';
 
-export interface PlacesViewProps extends MapViewProps {}
+export interface PlacesViewProps extends ViewProps {}
 
 export interface PlaceViewMarkerProps {
-  size: number;
   image: string;
+  selected?: boolean;
+}
+
+export interface PlacesBottomSheetViewProps {
+  placeData?: PlaceData;
 }

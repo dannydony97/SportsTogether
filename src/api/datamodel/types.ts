@@ -22,7 +22,15 @@ export type UserProps = UserData & Pick<FirebaseAuthTypes.User, 'displayName'>;
  * Place document data interface
  */
 export interface PlaceData {
+  name: string;
   sport: Sport;
   coordinate: FirebaseFirestoreTypes.GeoPoint;
   images: string[];
 }
+
+/**
+ * Data with its document id
+ */
+export type WithID<T> = T & {
+  id: string;
+};
