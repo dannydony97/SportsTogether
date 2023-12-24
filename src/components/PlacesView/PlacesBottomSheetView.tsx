@@ -4,6 +4,8 @@ import {Image, Text, View} from 'react-native-ui-lib';
 import {BottomSheetModal, BottomSheetScrollView} from '@gorhom/bottom-sheet';
 import {BottomSheetModalMethods} from '@gorhom/bottom-sheet/lib/typescript/types';
 import {FlatList} from 'react-native-gesture-handler';
+import {ImageViewer, ImageWrapper} from 'react-native-reanimated-viewer';
+import {ListRenderItemInfo} from 'react-native';
 
 const ICON_IMAGE_SIZE = 70;
 
@@ -12,6 +14,11 @@ const PlacesBottomSheetView: FC<PlacesBottomSheetViewProps> = ({placeData}) => {
    * Bottom sheet reference object instance
    */
   const bottomSheetRef = useRef<BottomSheetModalMethods>(null);
+
+  /**
+   * Image viewer reference object instance
+   */
+  const imageViewerRef = useRef(null);
 
   /**
    * Snap points
@@ -30,11 +37,11 @@ const PlacesBottomSheetView: FC<PlacesBottomSheetViewProps> = ({placeData}) => {
    * Renders images from the flat list
    * @param image image uri
    */
-  const renderImage = (image: string): JSX.Element => {
+  const renderImage = (info: ListRenderItemInfo<string>): JSX.Element => {
     return (
-      <View style={{padding: 10}}>
-        <Image source={{uri: image}} style={{width: 200, aspectRatio: 2 / 3, borderRadius: 10}} />
-      </View>
+      <ImageWrapper style={{margin: 10}} viewerRef={imageViewerRef} index={info.index} source={{uri: info.item}}>
+        <Image source={{uri: info.item}} style={{borderRadius: 10, aspectRatio: 2 / 3, width: 200}} />
+      </ImageWrapper>
     );
   };
 
@@ -56,12 +63,23 @@ const PlacesBottomSheetView: FC<PlacesBottomSheetViewProps> = ({placeData}) => {
             <Text text80>{placeData?.sport}</Text>
           </View>
         </View>
-        <FlatList
-          showsHorizontalScrollIndicator={false}
-          horizontal
-          data={placeData?.images ?? []}
-          renderItem={info => renderImage(info.item)}
+        <ImageViewer
+          ref={imageViewerRef}
+          data={(placeData?.images ?? []).map(image => ({key: `key-${image}`, source: {uri: image}}))}
         />
+        <View style={{flexDirection: 'row'}}>
+          <FlatList
+            showsHorizontalScrollIndicator={false}
+            horizontal
+            data={placeData?.images}
+            renderItem={renderImage}
+          />
+          {/* {(placeData?.images ?? []).map((image, index) => (
+            <ImageWrapper viewerRef={imageViewerRef} index={index} source={{uri: image}}>
+              <Image source={{uri: image}} style={{aspectRatio: 2 / 3, width: 200}} />
+            </ImageWrapper>
+          ))} */}
+        </View>
       </BottomSheetScrollView>
     </BottomSheetModal>
   );
