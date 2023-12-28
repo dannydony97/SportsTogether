@@ -1,8 +1,8 @@
 import React, {FC, useEffect} from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import LoginNavigator from '../LoginNavigator';
+import HomeNavigator from '../HomeNavigator';
 import {MainNavigatorParamsList, MainNavigatorProps} from './types';
-import MenuNavigator from '../MenuNavigator';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {useAuthentification} from '../../providers/AuthentificationProvider';
 
@@ -21,7 +21,7 @@ const MainNavigator: FC<MainNavigatorProps> = ({}) => {
 
   useEffect(() => {
     if (user) {
-      navigation.navigate('MenuNavigator', {});
+      navigation.navigate('HomeNavigator', {});
     }
   }, [navigation, user]);
 
@@ -31,7 +31,7 @@ const MainNavigator: FC<MainNavigatorProps> = ({}) => {
         headerShown: false,
       }}>
       <Stack.Screen name="LoginNavigator" component={LoginNavigator} />
-      <Stack.Screen name="MenuNavigator" component={MenuNavigator} />
+      <Stack.Screen name="HomeNavigator" component={HomeNavigator} />
     </Stack.Navigator>
   );
 };

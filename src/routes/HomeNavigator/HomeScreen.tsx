@@ -10,7 +10,7 @@ const HomeScreen: FC<HomeNavigatorScreenProps<'Home'>> = () => {
   return (
     <View flex>
       <PlacesProvider>
-        <PlacesView style={{flex: 1}} />
+        <PlacesView />
       </PlacesProvider>
     </View>
   );

@@ -1,15 +1,15 @@
 import React, {FC, useEffect} from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {HomeNavigatorParamsList} from './types';
-import {MenuNavigatorScreenProps} from '../MenuNavigator/types';
 import CreateAccountWizardScreen from './CreateAccountWizardScreen';
 import HomeScreen from './HomeScreen';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {useUser} from '../../providers/UserProvider';
+import {MainNavigatorScreenProps} from '../MainNavigator/types';
 
 const Stack = createNativeStackNavigator<HomeNavigatorParamsList>();
 
-const HomeNavigator: FC<MenuNavigatorScreenProps<'HomeNavigator'>> = () => {
+const HomeNavigator: FC<MainNavigatorScreenProps<'HomeNavigator'>> = () => {
   /**
    * Navigation object instance
    */

@@ -1,19 +1,19 @@
-import React, {FC, useEffect, useMemo, useRef} from 'react';
+import React, {FC, useMemo, useRef} from 'react';
 import {PlacesBottomSheetViewProps} from './types';
 import {Image, Text, View} from 'react-native-ui-lib';
-import {BottomSheetModal, BottomSheetScrollView} from '@gorhom/bottom-sheet';
-import {BottomSheetModalMethods} from '@gorhom/bottom-sheet/lib/typescript/types';
+import {BottomSheetMethods} from '@gorhom/bottom-sheet/lib/typescript/types';
 import {FlatList} from 'react-native-gesture-handler';
 import {ImageViewer, ImageWrapper} from 'react-native-reanimated-viewer';
 import {ListRenderItemInfo} from 'react-native';
+import BottomSheet, {BottomSheetScrollView} from '@gorhom/bottom-sheet';
 
 const ICON_IMAGE_SIZE = 70;
 
-const PlacesBottomSheetView: FC<PlacesBottomSheetViewProps> = ({placeData}) => {
+const PlacesBottomSheetView: FC<PlacesBottomSheetViewProps> = ({placeData, ...bottomSheetModalProps}) => {
   /**
    * Bottom sheet reference object instance
    */
-  const bottomSheetRef = useRef<BottomSheetModalMethods>(null);
+  const bottomSheetRef = useRef<BottomSheetMethods>(null);
 
   /**
    * Image viewer reference object instance
@@ -23,15 +23,7 @@ const PlacesBottomSheetView: FC<PlacesBottomSheetViewProps> = ({placeData}) => {
   /**
    * Snap points
    */
-  const snapPoints = useMemo(() => ['25%', '50%', '75%'], []);
-
-  useEffect(() => {
-    if (placeData) {
-      bottomSheetRef.current?.present();
-    } else {
-      bottomSheetRef.current?.dismiss();
-    }
-  }, [placeData]);
+  const snapPoints = useMemo(() => [100, 300, 500], []);
 
   /**
    * Renders images from the flat list
@@ -46,7 +38,12 @@ const PlacesBottomSheetView: FC<PlacesBottomSheetViewProps> = ({placeData}) => {
   };
 
   return (
-    <BottomSheetModal enablePanDownToClose={false} ref={bottomSheetRef} snapPoints={snapPoints} index={1}>
+    <BottomSheet
+      enablePanDownToClose={false}
+      ref={bottomSheetRef}
+      snapPoints={snapPoints}
+      index={0}
+      {...bottomSheetModalProps}>
       <BottomSheetScrollView>
         <View flex style={{flexDirection: 'row', paddingHorizontal: 10, marginBottom: 10}}>
           <Image
@@ -74,14 +71,9 @@ const PlacesBottomSheetView: FC<PlacesBottomSheetViewProps> = ({placeData}) => {
             data={placeData?.images}
             renderItem={renderImage}
           />
-          {/* {(placeData?.images ?? []).map((image, index) => (
-            <ImageWrapper viewerRef={imageViewerRef} index={index} source={{uri: image}}>
-              <Image source={{uri: image}} style={{aspectRatio: 2 / 3, width: 200}} />
-            </ImageWrapper>
-          ))} */}
         </View>
       </BottomSheetScrollView>
-    </BottomSheetModal>
+    </BottomSheet>
   );
 };
 

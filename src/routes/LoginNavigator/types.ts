@@ -1,5 +1,5 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {MenuNavigatorProps} from '../MenuNavigator/types';
+import {HomeNavigatorProps} from '../HomeNavigator/types';
 
 /**
  * Properties for the Login screen
@@ -33,7 +33,7 @@ export type LoginNavigatorParamsList = {
   MobileNumber: MobileNumberScreenProps;
   CountryCodes: CountryCodesScreenProps;
   ConfirmNumber: ConfirmNumberScreenProps;
-  MenuNavigator: MenuNavigatorProps;
+  HomeNavigator: HomeNavigatorProps;
 };
 
 export type LoginNavigatorScreenProps<RouteName extends keyof LoginNavigatorParamsList> = NativeStackScreenProps<

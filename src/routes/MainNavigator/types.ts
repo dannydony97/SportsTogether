@@ -1,13 +1,13 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {LoginNavigatorProps} from '../LoginNavigator/types';
-import {MenuNavigatorProps} from '../MenuNavigator/types';
+import {HomeNavigatorProps} from '../HomeNavigator/types';
 
 /**
  * List of params for the Main navigator
  */
 export type MainNavigatorParamsList = {
   LoginNavigator: LoginNavigatorProps;
-  MenuNavigator: MenuNavigatorProps;
+  HomeNavigator: HomeNavigatorProps;
 };
 
 export interface MainNavigatorProps {}
