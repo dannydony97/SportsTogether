@@ -7,7 +7,7 @@ import {Button, View} from 'react-native-ui-lib';
 import PlacesBottomSheetView from './PlacesBottomSheetView';
 import {PlaceData, WithID} from '../../api/datamodel/types';
 import {FontAwesome5} from '../Icon';
-import Animated, {useAnimatedReaction, useSharedValue} from 'react-native-reanimated';
+import Animated, {useSharedValue} from 'react-native-reanimated';
 
 const PlacesView: FC<PlacesViewProps> = ({...viewProps}) => {
   /**
@@ -26,25 +26,9 @@ const PlacesView: FC<PlacesViewProps> = ({...viewProps}) => {
   const [selectedPlace, setSelectedPlace] = useState<WithID<PlaceData>>();
 
   /**
-   * Bottom sheet vertical position
+   * Bottom sheet vertical translation
    */
-  const animatedPosition = useSharedValue(0);
-
   const translateY = useSharedValue(0);
-
-  useAnimatedReaction(
-    () => {
-      return animatedPosition.value;
-    },
-    (prepared, previous) => {
-      console.log(prepared, previous);
-      if (!previous) {
-        return;
-      }
-
-      translateY.value += prepared - previous;
-    },
-  );
 
   /**
    * Hook for catching the changing of the current selected place
@@ -83,7 +67,7 @@ const PlacesView: FC<PlacesViewProps> = ({...viewProps}) => {
           iconSource={() => <FontAwesome5 name="location-arrow" size={20} />}
         />
       </Animated.View>
-      <PlacesBottomSheetView animatedPosition={animatedPosition} placeData={selectedPlace} />
+      <PlacesBottomSheetView translateY={translateY} placeData={selectedPlace} />
     </View>
   );
 };

@@ -6,10 +6,11 @@ import {FlatList} from 'react-native-gesture-handler';
 import {ImageViewer, ImageWrapper} from 'react-native-reanimated-viewer';
 import {ListRenderItemInfo} from 'react-native';
 import BottomSheet, {BottomSheetScrollView} from '@gorhom/bottom-sheet';
+import {useAnimatedReaction, useSharedValue} from 'react-native-reanimated';
 
 const ICON_IMAGE_SIZE = 70;
 
-const PlacesBottomSheetView: FC<PlacesBottomSheetViewProps> = ({placeData, ...bottomSheetModalProps}) => {
+const PlacesBottomSheetView: FC<PlacesBottomSheetViewProps> = ({placeData, translateY, ...bottomSheetModalProps}) => {
   /**
    * Bottom sheet reference object instance
    */
@@ -24,6 +25,27 @@ const PlacesBottomSheetView: FC<PlacesBottomSheetViewProps> = ({placeData, ...bo
    * Snap points
    */
   const snapPoints = useMemo(() => [100, 300, 500], []);
+
+  /**
+   * Bottom sheet vertical position
+   */
+  const animatedPosition = useSharedValue(0);
+
+  /**
+   * Hook for calculating vertical translation
+   */
+  useAnimatedReaction(
+    () => {
+      return animatedPosition.value;
+    },
+    (prepared, previous) => {
+      if (!translateY || !previous) {
+        return;
+      }
+
+      translateY.value += prepared - previous;
+    },
+  );
 
   /**
    * Renders images from the flat list
@@ -43,6 +65,7 @@ const PlacesBottomSheetView: FC<PlacesBottomSheetViewProps> = ({placeData, ...bo
       ref={bottomSheetRef}
       snapPoints={snapPoints}
       index={0}
+      animatedPosition={animatedPosition}
       {...bottomSheetModalProps}>
       <BottomSheetScrollView>
         <View flex style={{flexDirection: 'row', paddingHorizontal: 10, marginBottom: 10}}>
