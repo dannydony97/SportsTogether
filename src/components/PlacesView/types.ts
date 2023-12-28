@@ -4,12 +4,20 @@ import {BottomSheetModalProps} from '@gorhom/bottom-sheet';
 
 export interface PlacesViewProps {}
 
-export interface PlaceViewMarkerProps {
+export interface PlaceMarkerProps {
   image: string;
   selected: boolean;
 }
 
-export interface PlacesBottomSheetViewProps extends Omit<BottomSheetModalProps, 'children'> {
+export interface CurrentPositionMarkerProps {}
+
+export interface PlacesBottomSheetProps extends Omit<BottomSheetModalProps, 'children'> {
   translateY?: SharedValue<number>;
   placeData?: PlaceData;
+}
+
+export interface HomeViewProps {}
+
+export interface PlaceViewProps {
+  placeData: PlaceData;
 }

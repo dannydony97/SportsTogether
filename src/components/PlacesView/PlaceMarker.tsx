@@ -1,11 +1,11 @@
 import React, {FC, useEffect, useRef} from 'react';
-import {PlaceViewMarkerProps} from './types';
+import {PlaceMarkerProps} from './types';
 import {Image, View} from 'react-native-ui-lib';
 import {Animated} from 'react-native';
 
-const PLACE_VIEW_MARKER_SIZE = 50;
+const PLACE_MARKER_SIZE = 50;
 
-const PlaceViewMarker: FC<PlaceViewMarkerProps> = ({image, selected}) => {
+const PlaceMarker: FC<PlaceMarkerProps> = ({image, selected}) => {
   const scale = useRef(new Animated.Value(1));
 
   useEffect(() => {
@@ -37,9 +37,9 @@ const PlaceViewMarker: FC<PlaceViewMarkerProps> = ({image, selected}) => {
         style={{
           borderColor: 'white',
           borderWidth: 2,
-          width: PLACE_VIEW_MARKER_SIZE,
-          height: PLACE_VIEW_MARKER_SIZE,
-          borderRadius: PLACE_VIEW_MARKER_SIZE / 2,
+          width: PLACE_MARKER_SIZE,
+          height: PLACE_MARKER_SIZE,
+          borderRadius: PLACE_MARKER_SIZE / 2,
         }}
         source={{uri: image}}
       />
@@ -62,4 +62,4 @@ const PlaceViewMarker: FC<PlaceViewMarkerProps> = ({image, selected}) => {
   );
 };
 
-export default PlaceViewMarker;
+export default PlaceMarker;
