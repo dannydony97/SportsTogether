@@ -1,7 +1,7 @@
 import React, {FC, useEffect, useMemo, useRef, useState} from 'react';
 import {PlacesBottomSheetProps} from '../types';
 import {BottomSheetMethods} from '@gorhom/bottom-sheet/lib/typescript/types';
-import BottomSheet from '@gorhom/bottom-sheet';
+import BottomSheet, {BottomSheetScrollView} from '@gorhom/bottom-sheet';
 import {useAnimatedReaction, useSharedValue} from 'react-native-reanimated';
 import PlaceView from './PlaceView';
 import HomeView from './HomeView';
@@ -15,7 +15,7 @@ const PlacesBottomSheet: FC<PlacesBottomSheetProps> = ({placeData, translateY, .
   /**
    * Snap points
    */
-  const snapPoints = useMemo(() => [100, 300, 500], []);
+  const snapPoints = useMemo(() => [100, '50%'], []);
 
   /**
    * Bottom sheet vertical position
@@ -59,7 +59,7 @@ const PlacesBottomSheet: FC<PlacesBottomSheetProps> = ({placeData, translateY, .
       animatedPosition={animatedPosition}
       index={index}
       {...bottomSheetModalProps}>
-      {placeData ? <PlaceView placeData={placeData} /> : <HomeView />}
+      <BottomSheetScrollView>{placeData ? <PlaceView placeData={placeData} /> : <HomeView />}</BottomSheetScrollView>
     </BottomSheet>
   );
 };

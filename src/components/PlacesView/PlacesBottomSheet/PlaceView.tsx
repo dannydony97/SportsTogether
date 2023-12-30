@@ -1,6 +1,5 @@
 import React, {FC, useRef} from 'react';
 import {PlaceViewProps} from '../types';
-import {BottomSheetScrollView} from '@gorhom/bottom-sheet';
 import {View, Text, Image} from 'react-native-ui-lib';
 import {ImageViewer, ImageWrapper} from 'react-native-reanimated-viewer';
 import {FlatList} from 'react-native-gesture-handler';
@@ -27,7 +26,7 @@ const PlaceView: FC<PlaceViewProps> = ({placeData}) => {
   };
 
   return (
-    <BottomSheetScrollView>
+    <View>
       <View flex style={{flexDirection: 'row', paddingHorizontal: 10, marginBottom: 10}}>
         <Image
           style={{
@@ -50,7 +49,7 @@ const PlaceView: FC<PlaceViewProps> = ({placeData}) => {
       <View style={{flexDirection: 'row'}}>
         <FlatList showsHorizontalScrollIndicator={false} horizontal data={placeData?.images} renderItem={renderImage} />
       </View>
-    </BottomSheetScrollView>
+    </View>
   );
 };
 
