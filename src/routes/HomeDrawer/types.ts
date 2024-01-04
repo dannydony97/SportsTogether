@@ -1,4 +1,4 @@
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {DrawerScreenProps} from '@react-navigation/drawer';
 
 /**
  * Properties for the Home screen
@@ -12,7 +12,7 @@ export type HomeNavigatorParamsList = {
   Home: HomeScreenProps;
 };
 
-export type HomeNavigatorScreenProps<RouteName extends keyof HomeNavigatorParamsList> = NativeStackScreenProps<
+export type HomeNavigatorScreenProps<RouteName extends keyof HomeNavigatorParamsList> = DrawerScreenProps<
   HomeNavigatorParamsList,
   RouteName
 >;

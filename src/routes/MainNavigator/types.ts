@@ -1,6 +1,6 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {LoginNavigatorProps} from '../LoginNavigator/types';
-import {HomeNavigatorProps} from '../HomeNavigator/types';
+import {HomeNavigatorProps} from '../HomeDrawer/types';
 
 /**
  * Properties for the Loading screen

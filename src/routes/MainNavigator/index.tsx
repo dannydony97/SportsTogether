@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import LoginNavigator from '../LoginNavigator';
-import HomeNavigator from '../HomeNavigator';
+import HomeDrawer from '../HomeDrawer';
 import {MainNavigatorParamsList, MainNavigatorProps} from './types';
 import LoadingScreen from './LoadingScreen';
 
@@ -16,7 +16,7 @@ const MainNavigator: FC<MainNavigatorProps> = ({}) => {
       }}>
       <Stack.Screen name="Loading" component={LoadingScreen} />
       <Stack.Screen name="LoginNavigator" component={LoginNavigator} />
-      <Stack.Screen name="HomeNavigator" component={HomeNavigator} />
+      <Stack.Screen name="HomeNavigator" component={HomeDrawer} />
     </Stack.Navigator>
   );
 };
