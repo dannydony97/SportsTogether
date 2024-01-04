@@ -26,6 +26,11 @@ export interface ConfirmNumberScreenProps {
 }
 
 /**
+ * Properties for the Create Account Wizard screen
+ */
+export interface CreateAccountWizardScreenProps {}
+
+/**
  * List of params for the Login navigator
  */
 export type LoginNavigatorParamsList = {
@@ -34,6 +39,7 @@ export type LoginNavigatorParamsList = {
   CountryCodes: CountryCodesScreenProps;
   ConfirmNumber: ConfirmNumberScreenProps;
   HomeNavigator: HomeNavigatorProps;
+  CreateAccountWizard: CreateAccountWizardScreenProps;
 };
 
 export type LoginNavigatorScreenProps<RouteName extends keyof LoginNavigatorParamsList> = NativeStackScreenProps<

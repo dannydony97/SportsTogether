@@ -10,7 +10,7 @@ const AuthentificationProvider: FC<AuthentificationProviderProps> = ({children})
   /**
    * Current logged in user
    */
-  const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
+  const [user, setUser] = useState<FirebaseAuthTypes.User | null>();
 
   /**
    * Phone number authentification confirmation result

@@ -46,3 +46,8 @@ export interface ConfirmCodeProps extends Omit<CodeFieldProps, 'renderCell'> {
   value: string;
   setValue: Dispatch<string>;
 }
+
+/**
+ * Loading view properties
+ */
+export interface LoadingViewProps extends ViewProps {}

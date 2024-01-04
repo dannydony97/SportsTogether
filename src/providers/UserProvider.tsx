@@ -26,9 +26,9 @@ const UserProvider: FC<UserProviderProps> = ({children}) => {
    * Fetches all user's properties
    * @returns User properties
    */
-  const fetchUserProps = useCallback(async (): Promise<UserProps | null> => {
+  const fetchUserProps = useCallback(async (): Promise<UserProps | null | undefined> => {
     if (!user) {
-      throw new Error('Could not fetch props. No user is authenticated');
+      return undefined;
     }
 
     try {
@@ -60,7 +60,7 @@ const UserProvider: FC<UserProviderProps> = ({children}) => {
     }
 
     user.displayName = displayName;
-    await usersCollection.current.addData(userDocumentData);
+    await usersCollection.current.addData(userDocumentData, user.uid);
     setUserProps({
       displayName,
       ...userDocumentData,
@@ -68,10 +68,6 @@ const UserProvider: FC<UserProviderProps> = ({children}) => {
   };
 
   useEffect(() => {
-    if (!user) {
-      return;
-    }
-
     refreshUser();
   }, [refreshUser, user]);
 

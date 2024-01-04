@@ -1,11 +1,6 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 /**
- * Properties for the Create Account Wizard screen
- */
-export interface CreateAccountWizardScreenProps {}
-
-/**
  * Properties for the Home screen
  */
 export interface HomeScreenProps {}
@@ -14,7 +9,6 @@ export interface HomeScreenProps {}
  * List of params for the Home navigator
  */
 export type HomeNavigatorParamsList = {
-  CreateAccountWizard: CreateAccountWizardScreenProps;
   Home: HomeScreenProps;
 };
 

@@ -1,12 +1,29 @@
-import React, {FC} from 'react';
+import React, {FC, useEffect} from 'react';
 import {LoginNavigatorScreenProps} from './types';
 import Screen from '../../components/Screen';
 import {AppleButton} from '@invertase/react-native-apple-authentication';
 import {Platform} from 'react-native';
 import {useAuthentification} from '../../providers/AuthentificationProvider';
 import {Button, Text, View} from 'react-native-ui-lib';
+import {useUser} from '../../providers/UserProvider';
 
 const LoginScreen: FC<LoginNavigatorScreenProps<'Login'>> = ({navigation}) => {
+  /**
+   * Authentificated user
+   */
+  const {user} = useAuthentification();
+
+  /**
+   * User's properties
+   */
+  const {userProps} = useUser();
+
+  useEffect(() => {
+    if (user !== null && userProps === null) {
+      navigation.navigate('CreateAccountWizard', {});
+    }
+  }, [user, userProps, navigation]);
+
   /**
    * Methods that signs the user with a phone number
    */

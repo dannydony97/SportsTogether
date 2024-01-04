@@ -1,11 +1,11 @@
 import React, {FC, useState} from 'react';
 import Screen from '../../components/Screen';
 import {Button, Chip, Colors, GridList, Text, TextField, View, Wizard, WizardStepStates} from 'react-native-ui-lib';
-import {HomeNavigatorScreenProps} from './types';
 import {Ionicon, MaterialIcon} from '../../components/Icon';
 import {Sport, UserProps} from '../../api/datamodel/types';
 import {ColorValue, ListRenderItemInfo} from 'react-native';
 import {useUser} from '../../providers/UserProvider';
+import {LoginNavigatorScreenProps} from './types';
 
 type WizardStep = {
   state: WizardStepStates;
@@ -111,7 +111,7 @@ const SPORTS: ReadonlyArray<SportItem> = [
   },
 ];
 
-const CreateAccountWizardScreen: FC<HomeNavigatorScreenProps<'CreateAccountWizard'>> = () => {
+const CreateAccountWizardScreen: FC<LoginNavigatorScreenProps<'CreateAccountWizard'>> = () => {
   /**
    * Creates the authentificated user function
    */

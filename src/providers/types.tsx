@@ -7,9 +7,9 @@ import {PlaceData, UserProps, WithID} from '../api/datamodel/types';
  */
 export interface AuthentificationContextInterface {
   /**
-   * UID of the logged in user
+   * Authentificated user
    */
-  user: FirebaseAuthTypes.User | null;
+  user: FirebaseAuthTypes.User | null | undefined;
   /**
    * Signs in with a phone number
    * @param phoneNumber phone number
