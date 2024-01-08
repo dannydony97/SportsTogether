@@ -7,7 +7,7 @@ import {Colors} from 'react-native-ui-lib';
 const Screen: FC<ScreenProps> = ({children, headerUsing, style, ...safeAreaViewProps}) => {
   return (
     <SafeAreaView
-      edges={['left', 'right', 'bottom', ...(headerUsing ? (['top'] as Edge[]) : [])]}
+      edges={['left', 'right', 'bottom', ...(!headerUsing ? (['top'] as Edge[]) : [])]}
       style={[styles.safeArea, style]}
       {...safeAreaViewProps}>
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.keyboardAvoiding}>

@@ -6,11 +6,17 @@ import {Sport, UserProps} from '../../api/datamodel/types';
 import {ColorValue, ListRenderItemInfo} from 'react-native';
 import {useUser} from '../../providers/UserProvider';
 import {LoginNavigatorScreenProps} from './types';
+import ProfilePicture from '../../components/ProfilePicture';
+
+interface ComponentProps {
+  userProps: UserProps;
+  updateUserProps: (value: Partial<UserProps>) => void;
+}
 
 type WizardStep = {
   state: WizardStepStates;
   label: string;
-  component: (userProps: UserProps, updateUserProps: (value: Partial<UserProps>) => void) => JSX.Element;
+  Component: FC<ComponentProps>;
 };
 
 /**
@@ -19,8 +25,8 @@ type WizardStep = {
 const WIZARD_STEPS: WizardStep[] = [
   {
     state: WizardStepStates.ENABLED,
-    label: 'Who are you',
-    component: (userProps, updateUserProps) => (
+    label: 'Who are you?',
+    Component: ({userProps, updateUserProps}) => (
       <View flex>
         <Text text30R style={{marginVertical: 20}}>
           What's your name?
@@ -37,8 +43,22 @@ const WIZARD_STEPS: WizardStep[] = [
   },
   {
     state: WizardStepStates.ENABLED,
+    label: 'How do you look?',
+    Component: ({userProps, updateUserProps}) => {
+      return (
+        <View flex>
+          <Text text30R style={{marginVertical: 20}}>
+            Upload a picture of yourself for your profile
+          </Text>
+          <ProfilePicture selectPhotoButton containerStyle={{alignSelf: 'center'}} size={200} />
+        </View>
+      );
+    },
+  },
+  {
+    state: WizardStepStates.ENABLED,
     label: 'Preferred sports',
-    component: (userProps, updateUserProps) => {
+    Component: ({userProps, updateUserProps}) => {
       /**
        * Renders an item of the preferred sports list
        */
@@ -87,7 +107,7 @@ const WIZARD_STEPS: WizardStep[] = [
   {
     state: WizardStepStates.COMPLETED,
     label: 'Complete',
-    component: () => (
+    Component: () => (
       <View flex style={{alignItems: 'center', justifyContent: 'center'}}>
         <Text text10>That's it!</Text>
       </View>
@@ -148,7 +168,7 @@ const CreateAccountWizardScreen: FC<LoginNavigatorScreenProps<'CreateAccountWiza
     switch (activeIndex) {
       case 0:
         return userProps.displayName?.length === 0;
-      case 1:
+      case 2:
         return userProps.preferredSports.length === 0;
     }
 
@@ -182,7 +202,10 @@ const CreateAccountWizardScreen: FC<LoginNavigatorScreenProps<'CreateAccountWiza
         ))}
       </Wizard>
       <View flex style={{padding: 15}}>
-        {WIZARD_STEPS[activeIndex].component(userProps, updateUserProps)}
+        {WIZARD_STEPS[activeIndex].Component({
+          userProps,
+          updateUserProps,
+        })}
         <View style={{justifyContent: 'flex-end', alignItems: 'center', flexDirection: 'row'}}>
           {WIZARD_STEPS[activeIndex].state !== WizardStepStates.COMPLETED && (
             <View flex style={{flexDirection: 'row', alignItems: 'center'}}>

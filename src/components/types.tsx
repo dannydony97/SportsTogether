@@ -2,7 +2,7 @@ import {Dispatch} from 'react';
 import {TextInput} from 'react-native';
 import {CodeFieldProps} from 'react-native-confirmation-code-field';
 import {SafeAreaViewProps} from 'react-native-safe-area-context';
-import {ViewProps} from 'react-native-ui-lib';
+import {AvatarProps, ImageProps, ViewProps} from 'react-native-ui-lib';
 
 /**
  * Screen properties
@@ -51,3 +51,10 @@ export interface ConfirmCodeProps extends Omit<CodeFieldProps, 'renderCell'> {
  * Loading view properties
  */
 export interface LoadingViewProps extends ViewProps {}
+
+/**
+ * Profile picture properties
+ */
+export interface ProfilePictureProps extends AvatarProps {
+  selectPhotoButton?: boolean;
+}
