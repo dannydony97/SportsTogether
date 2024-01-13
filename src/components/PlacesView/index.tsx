@@ -49,13 +49,14 @@ const PlacesView: FC<PlacesViewProps> = ({...viewProps}) => {
   /**
    * Retrieves the current position
    */
-  const moveToCurrentPosition = useCallback((): void => {
+  const moveToPosition = useCallback((coordinates: LatLng, position: 'center' | 'top-center' = 'center'): void => {
     mapViewRef.current?.animateToRegion({
-      ...currentPosition,
+      latitude: coordinates.latitude - (position === 'top-center' ? 0.015 : 0),
+      longitude: coordinates.longitude,
       latitudeDelta: 0.06,
       longitudeDelta: 0.004,
     });
-  }, [currentPosition]);
+  }, []);
 
   const updateCurrentPosition = useCallback((): void => {
     Geolocation.getCurrentPosition(position => {
@@ -94,14 +95,11 @@ const PlacesView: FC<PlacesViewProps> = ({...viewProps}) => {
     if (!selectedPlace) {
       return;
     }
-
-    mapViewRef.current?.animateToRegion({
-      latitude: selectedPlace.coordinate.latitude - 0.015,
-      longitude: selectedPlace.coordinate.longitude,
-      latitudeDelta: 0.06,
-      longitudeDelta: 0.004,
-    });
-  }, [selectedPlace]);
+    moveToPosition(
+      {latitude: selectedPlace.coordinate.latitude, longitude: selectedPlace.coordinate.longitude},
+      'top-center',
+    );
+  }, [moveToPosition, selectedPlace]);
 
   /**
    * Triggered when a location from the map has been pressed
@@ -118,7 +116,7 @@ const PlacesView: FC<PlacesViewProps> = ({...viewProps}) => {
    * Triggered when the current position button has been pressed
    */
   const onCurrentPositionPress = (): void => {
-    moveToCurrentPosition();
+    moveToPosition(currentPosition);
   };
 
   return (
