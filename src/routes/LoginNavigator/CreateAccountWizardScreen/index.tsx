@@ -130,7 +130,6 @@ const CreateAccountWizardScreen: FC<LoginNavigatorScreenProps<'CreateAccountWiza
     }
   };
 
-  console.log('message from here', loaderVisible);
   return (
     <Screen>
       {loaderVisible && <LoaderScreen overlay />}

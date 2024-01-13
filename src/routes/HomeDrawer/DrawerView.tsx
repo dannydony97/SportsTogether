@@ -1,9 +1,10 @@
 import {DrawerContentComponentProps, DrawerContentScrollView, DrawerItemList} from '@react-navigation/drawer';
 import React, {FC} from 'react';
-import {Image, Text, View} from 'react-native-ui-lib';
+import {Text, View} from 'react-native-ui-lib';
 import {useUser} from '../../providers/UserProvider';
+import ProfilePicture from '../../components/ProfilePicture';
 
-const PROFILE_PICTURE_SIZE = 90;
+const PROFILE_PICTURE_SIZE = 80;
 
 const DrawerView: FC<DrawerContentComponentProps> = props => {
   /**
@@ -14,11 +15,8 @@ const DrawerView: FC<DrawerContentComponentProps> = props => {
   return (
     <DrawerContentScrollView {...props}>
       <View style={{alignItems: 'center'}}>
-        <Image
-          source={require('../../../assets/blank-profile-picture.jpg')}
-          style={{width: PROFILE_PICTURE_SIZE, height: PROFILE_PICTURE_SIZE, borderRadius: PROFILE_PICTURE_SIZE / 2}}
-        />
-        <Text>{userProps?.displayName}</Text>
+        <ProfilePicture size={PROFILE_PICTURE_SIZE} />
+        <Text text70>{userProps?.displayName}</Text>
       </View>
       <DrawerItemList {...props} />
     </DrawerContentScrollView>

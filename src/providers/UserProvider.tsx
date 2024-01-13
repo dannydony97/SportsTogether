@@ -61,7 +61,8 @@ const UserProvider: FC<UserProviderProps> = ({children}) => {
       throw new Error('Could not fetch props. No user is authenticated');
     }
 
-    user.displayName = displayName;
+    await user.updateProfile({displayName, photoURL});
+
     await usersCollection.current.addData(userDocumentData, user.uid);
     setUserProps({
       displayName,

@@ -1,10 +1,15 @@
-import React, {FC, useRef, useState} from 'react';
+import React, {FC, useEffect, useRef, useState} from 'react';
 import {ProfilePictureProps} from './types';
 import {ActionSheet, Avatar, Button, View} from 'react-native-ui-lib';
 import {ImageSourcePropType} from 'react-native';
 import ImageCropPicker from 'react-native-image-crop-picker';
+import {useUser} from '../providers/UserProvider';
 
 const ProfilePicture: FC<ProfilePictureProps> = ({onUpdateProfilePicture, ...avatarProps}) => {
+  /**
+   * User's properties
+   */
+  const {userProps} = useUser();
   /**
    * Source of the profile picture
    */
@@ -19,6 +24,14 @@ const ProfilePicture: FC<ProfilePictureProps> = ({onUpdateProfilePicture, ...ava
    * Tells if the action sheet can be dismissed or not
    */
   const canDismiss = useRef(true);
+
+  useEffect(() => {
+    if (!userProps || !userProps.photoURL) {
+      return;
+    }
+
+    setSource({uri: userProps.photoURL});
+  }, [userProps]);
 
   /**
    * Triggered when the avatar has been pressed
