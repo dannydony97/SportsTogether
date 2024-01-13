@@ -88,6 +88,22 @@ const PlacesView: FC<PlacesViewProps> = ({...viewProps}) => {
   }, [places, selectedPlaceId]);
 
   /**
+   * Hook for setting the map position on the selected place
+   */
+  useEffect(() => {
+    if (!selectedPlace) {
+      return;
+    }
+
+    mapViewRef.current?.animateToRegion({
+      latitude: selectedPlace.coordinate.latitude - 0.015,
+      longitude: selectedPlace.coordinate.longitude,
+      latitudeDelta: 0.06,
+      longitudeDelta: 0.004,
+    });
+  }, [selectedPlace]);
+
+  /**
    * Triggered when a location from the map has been pressed
    */
   const onMapPress = (e: MapPressEvent): void => {
