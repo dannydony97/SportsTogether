@@ -46,8 +46,15 @@ export interface UserContextInterface {
   refreshUser: () => Promise<void>;
   /**
    * User's properties
+   * @param userProps user's properties
    */
   createUser: (userProps: UserProps) => Promise<void>;
+  /**
+   * Uploads a new profile picture for the authentificated user
+   * @param profilePicturePath path to the local profile picture
+   * @returns The download URL of the uploaded profile picture
+   */
+  uploadProfilePicture: (profilePicturePath: string) => Promise<string>;
 }
 
 /**

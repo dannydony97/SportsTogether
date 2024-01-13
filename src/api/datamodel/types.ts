@@ -16,7 +16,7 @@ export type UserData = {
 /**
  * User's properties
  */
-export type UserProps = UserData & Pick<FirebaseAuthTypes.User, 'displayName'>;
+export type UserProps = UserData & Pick<FirebaseAuthTypes.User, 'displayName' | 'photoURL'>;
 
 /**
  * Place document data interface

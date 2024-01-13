@@ -4,7 +4,7 @@ import {ActionSheet, Avatar, Button, View} from 'react-native-ui-lib';
 import {ImageSourcePropType} from 'react-native';
 import ImageCropPicker from 'react-native-image-crop-picker';
 
-const ProfilePicture: FC<ProfilePictureProps> = ({selectPhotoButton, ...avatarProps}) => {
+const ProfilePicture: FC<ProfilePictureProps> = ({onUpdateProfilePicture, ...avatarProps}) => {
   /**
    * Source of the profile picture
    */
@@ -31,6 +31,10 @@ const ProfilePicture: FC<ProfilePictureProps> = ({selectPhotoButton, ...avatarPr
    * Triggered when the 'Take a photo' button from the action sheet has been pressed
    */
   const onTakePhotoPress = async (): Promise<void> => {
+    if (!onUpdateProfilePicture) {
+      throw new Error("'onUpdateProfilePicture' cannot be null");
+    }
+
     canDismiss.current = false;
     try {
       const result = await ImageCropPicker.openCamera({
@@ -39,16 +43,23 @@ const ProfilePicture: FC<ProfilePictureProps> = ({selectPhotoButton, ...avatarPr
         cropping: true,
         cropperCircleOverlay: true,
       });
+      setSource({uri: result.path});
+      onUpdateProfilePicture(result.path);
     } catch {
       // Intentionally ignored
     }
     canDismiss.current = true;
+    setActionSheetVisible(false);
   };
 
   /**
    * Triggered when the 'Choose from library' button from the action sheet has been pressed
    */
   const onChooseFromLibraryPress = async (): Promise<void> => {
+    if (!onUpdateProfilePicture) {
+      throw new Error("'onUpdateProfilePicture' cannot be null");
+    }
+
     canDismiss.current = false;
     try {
       const result = await ImageCropPicker.openPicker({
@@ -57,18 +68,19 @@ const ProfilePicture: FC<ProfilePictureProps> = ({selectPhotoButton, ...avatarPr
         cropping: true,
         cropperCircleOverlay: true,
       });
-      console.log(result.path);
+      setSource({uri: result.path});
+      onUpdateProfilePicture(result.path);
     } catch {
       // Intentionally ignored
     }
     canDismiss.current = true;
+    setActionSheetVisible(false);
   };
 
   /**
    * Triggered when the action sheet needs to be dismissed
    */
   const onActionSheetDismiss = (): void => {
-    console.log(canDismiss);
     if (canDismiss.current) {
       setActionSheetVisible(false);
     }
@@ -77,7 +89,7 @@ const ProfilePicture: FC<ProfilePictureProps> = ({selectPhotoButton, ...avatarPr
   return (
     <View>
       <Avatar source={source} {...avatarProps} />
-      {selectPhotoButton && (
+      {onUpdateProfilePicture && (
         <View>
           <Button onPress={onPress} label="Choose a photo" style={{marginTop: 10}} />
           <ActionSheet

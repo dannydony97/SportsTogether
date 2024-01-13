@@ -2,7 +2,7 @@ import {Dispatch} from 'react';
 import {TextInput} from 'react-native';
 import {CodeFieldProps} from 'react-native-confirmation-code-field';
 import {SafeAreaViewProps} from 'react-native-safe-area-context';
-import {AvatarProps, ImageProps, ViewProps} from 'react-native-ui-lib';
+import {AvatarProps, ViewProps} from 'react-native-ui-lib';
 
 /**
  * Screen properties
@@ -56,5 +56,10 @@ export interface LoadingViewProps extends ViewProps {}
  * Profile picture properties
  */
 export interface ProfilePictureProps extends AvatarProps {
-  selectPhotoButton?: boolean;
+  /**
+   * Callback invoked after selelecting a new photo for profile picture
+   * A button will appear under the current profile picture for selecting a new photo
+   * @param path local path of the selected profile picture
+   */
+  onUpdateProfilePicture?: (path: string) => void;
 }
