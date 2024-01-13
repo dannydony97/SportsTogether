@@ -1,6 +1,6 @@
 import React, {FC, useState} from 'react';
 import Screen from '../../../components/Screen';
-import {Button, Text, View, Wizard, WizardStepStates} from 'react-native-ui-lib';
+import {Button, LoaderScreen, Text, View, Wizard, WizardStepStates} from 'react-native-ui-lib';
 import {MaterialIcon} from '../../../components/Icon';
 import {UserProps} from '../../../api/datamodel/types';
 import {useUser} from '../../../providers/UserProvider';
@@ -62,6 +62,11 @@ const CreateAccountWizardScreen: FC<LoginNavigatorScreenProps<'CreateAccountWiza
   const [activeIndex, setActiveIndex] = useState(0);
 
   /**
+   * Suggests that the screen is in loading mode
+   */
+  const [loaderVisible, setLoaderVisible] = useState(false);
+
+  /**
    * Collected user's properties
    */
   const [userProps, setUserProps] = useState<UserProps>({
@@ -99,6 +104,7 @@ const CreateAccountWizardScreen: FC<LoginNavigatorScreenProps<'CreateAccountWiza
    * Triggered when all user properties has been collected
    */
   const onCreateAccountCompleted = async (): Promise<void> => {
+    setLoaderVisible(true);
     const {photoURL: profilePicturePath} = userProps;
     if (profilePicturePath) {
       const photoURL = await uploadProfilePicture(profilePicturePath);
@@ -109,6 +115,7 @@ const CreateAccountWizardScreen: FC<LoginNavigatorScreenProps<'CreateAccountWiza
     } else {
       createUser(userProps);
     }
+    setLoaderVisible(false);
   };
 
   /**
@@ -123,8 +130,10 @@ const CreateAccountWizardScreen: FC<LoginNavigatorScreenProps<'CreateAccountWiza
     }
   };
 
+  console.log('message from here', loaderVisible);
   return (
     <Screen>
+      {loaderVisible && <LoaderScreen overlay />}
       <Wizard activeIndex={activeIndex}>
         {WIZARD_STEPS.map(({state, label}, index) => (
           <Wizard.Step key={index} state={state} label={label} />
