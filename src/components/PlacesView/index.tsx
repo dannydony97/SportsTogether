@@ -10,8 +10,9 @@ import {FontAwesome5} from '../Icon';
 import Animated, {useSharedValue} from 'react-native-reanimated';
 import Geolocation from '@react-native-community/geolocation';
 import CurrentPositionMarker from './CurrentPositionMarker';
+import {BottomSheetMethods} from '@gorhom/bottom-sheet/lib/typescript/types';
 
-const PlacesView: FC<PlacesViewProps> = ({...viewProps}) => {
+const PlacesView: FC<PlacesViewProps> = ({}) => {
   /**
    * Array of all places
    */
@@ -28,6 +29,11 @@ const PlacesView: FC<PlacesViewProps> = ({...viewProps}) => {
   const [selectedPlaceId, setSelectedPlaceId] = useState<string>();
 
   //#region Bottom sheet props
+
+  /**
+   * Bottom sheet reference object
+   */
+  const bottomSheetRef = useRef<BottomSheetMethods>(null);
 
   /**
    * Data of the current selected place
@@ -99,6 +105,7 @@ const PlacesView: FC<PlacesViewProps> = ({...viewProps}) => {
       {latitude: selectedPlace.coordinate.latitude, longitude: selectedPlace.coordinate.longitude},
       'top-center',
     );
+    bottomSheetRef.current?.snapToIndex(1);
   }, [moveToPosition, selectedPlace]);
 
   /**
@@ -109,6 +116,7 @@ const PlacesView: FC<PlacesViewProps> = ({...viewProps}) => {
       setSelectedPlaceId((e as MarkerPressEvent).nativeEvent.id);
     } else {
       setSelectedPlaceId(undefined);
+      bottomSheetRef.current?.snapToIndex(0);
     }
   };
 
@@ -120,7 +128,7 @@ const PlacesView: FC<PlacesViewProps> = ({...viewProps}) => {
   };
 
   return (
-    <View flex {...viewProps}>
+    <View flex>
       <MapView ref={mapViewRef} style={{flex: 1}} onPress={onMapPress}>
         <Marker coordinate={currentPosition}>
           <CurrentPositionMarker />
@@ -142,7 +150,7 @@ const PlacesView: FC<PlacesViewProps> = ({...viewProps}) => {
           onPress={onCurrentPositionPress}
         />
       </Animated.View>
-      <PlacesBottomSheet translateY={translateY} placeData={selectedPlace} />
+      <PlacesBottomSheet ref={bottomSheetRef} translateY={translateY} placeData={selectedPlace} />
     </View>
   );
 };

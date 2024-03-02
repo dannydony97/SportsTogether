@@ -1,6 +1,7 @@
 import {SharedValue} from 'react-native-reanimated';
 import {PlaceData} from '../../api/datamodel/types';
 import {BottomSheetModalProps} from '@gorhom/bottom-sheet';
+import {Dispatch} from 'react';
 
 export interface PlacesViewProps {}
 
@@ -16,7 +17,10 @@ export interface PlacesBottomSheetProps extends Omit<BottomSheetModalProps, 'chi
   placeData?: PlaceData;
 }
 
-export interface HomeViewProps {}
+export interface MainViewProps {
+  searchVisible?: boolean;
+  seatSearchVisible?: Dispatch<boolean>;
+}
 
 export interface PlaceViewProps {
   placeData: PlaceData;

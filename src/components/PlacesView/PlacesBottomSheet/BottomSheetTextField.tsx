@@ -10,7 +10,7 @@ const BottomSheetTextField = forwardRef<TextInput, TextFieldProps>(({onFocus, on
     return () => {
       shouldHandleKeyboardEvents.value = false;
     };
-  });
+  }, [shouldHandleKeyboardEvents]);
 
   const handleOnFocus = useCallback(
     (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
